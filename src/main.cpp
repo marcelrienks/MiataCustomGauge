@@ -1,9 +1,5 @@
 #define LGFX_USE_V1
-#include "Arduino.h"
-#include <LovyanGFX.hpp>
-#include <lvgl.h>
-#include <string.h>
-#include <Preferences.h>
+
 #include "main.h"
 
 class LGFX : public lgfx::LGFX_Device
@@ -73,11 +69,21 @@ public:
     setPanel(&_panel_instance);
   }
 };
+
 LGFX tft;
 Preferences prefs;
 
+// Screens
+lv_obj_t *home_screen;
+
+//components
+Meter *meter;
+
+//screen stuff
 static const uint32_t screenWidth = WIDTH;
 static const uint32_t screenHeight = HEIGHT;
+
+//constants
 lv_color_t black = lv_color_make(0, 0, 0);
 
 const unsigned int lvBufferSize = screenWidth * 10;
@@ -87,6 +93,11 @@ uint8_t lvBuffer[2][lvBufferSize];
 const uint8_t DIM_BRIGHTNESS = 10;
 const uint8_t DEFAULT_BRIGHTNESS = 100;
 bool isScreenDimmed = false;
+
+void set_needle_line_value(void * obj, int32_t v)
+{
+    meter->set_needle_line_value(obj, v);
+}
 
 void screenBrightness(uint8_t value)
 {
@@ -127,9 +138,6 @@ void my_disp_flush(lv_display_t *display, const lv_area_t *area, unsigned char *
   lv_disp_flush_ready(display);
 }
 
-// Screens
-lv_obj_t *home_screen;
-
 // Objects
 lv_obj_t *arc;
 
@@ -159,7 +167,7 @@ void make_home_screen()
   lv_obj_set_style_bg_color(home_screen, black, LV_PART_MAIN);
   lv_obj_set_style_bg_opa(home_screen, LV_OPA_COVER, LV_PART_MAIN);
 
-  make_arc();
+  //make_arc();
 }
 
 void setup()
@@ -189,6 +197,11 @@ void setup()
     screenBrightness(br); // startup brightness
 
     make_home_screen();
+    
+    //init Meter
+    meter = new Meter(home_screen);
+    meter->register_animation_cb(set_needle_line_value);
+    meter->build();
 
     lv_scr_load(home_screen);
 
