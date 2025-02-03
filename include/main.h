@@ -1,4 +1,15 @@
+#ifndef MAIN_H
+#define MAIN_H
+
 #define UI_VERSION "4.1.0"
+
+#include "Arduino.h"
+#include <LovyanGFX.hpp>
+#include <lvgl.h>
+#include <string.h>
+#include <Preferences.h>
+
+#include "meter.h"
 
 // screen configs
 #define WIDTH 240
@@ -22,3 +33,5 @@
 #define BUZZER -1
 
 #define MAX_FILE_OPEN 10
+
+#endif // MAIN_H
