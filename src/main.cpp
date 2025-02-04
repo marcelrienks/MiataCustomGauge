@@ -89,10 +89,8 @@ lv_color_t black = lv_color_make(0, 0, 0);
 const unsigned int lvBufferSize = screenWidth * 10;
 uint8_t lvBuffer[2][lvBufferSize];
 
-// Screen Dimming
-const uint8_t DIM_BRIGHTNESS = 10;
+// Screen
 const uint8_t DEFAULT_BRIGHTNESS = 100;
-bool isScreenDimmed = false;
 
 void set_needle_line_value(void * obj, int32_t v)
 {
@@ -103,26 +101,8 @@ void screenBrightness(uint8_t value)
 {
   tft.setBrightness(value);
 }
-void checkScreenDimming()
-{
-  // TODO: wire up the 'false' to a check if screen should be dimmed
-  if (!isScreenDimmed && false)
-  {
-    // Time to dim the screen
-    screenBrightness(DIM_BRIGHTNESS);
-    isScreenDimmed = true;
-  }
-}
-void resetScreenBrightness()
-{
-  if (isScreenDimmed)
-  {
-    screenBrightness(DEFAULT_BRIGHTNESS);
-    isScreenDimmed = false;
-  }
-}
 
-// TODO: is this required?
+// TODO: Can this be put in an external class?
 void my_disp_flush(lv_display_t *display, const lv_area_t *area, unsigned char *data)
 {
   uint32_t w = lv_area_get_width(area);
@@ -138,36 +118,12 @@ void my_disp_flush(lv_display_t *display, const lv_area_t *area, unsigned char *
   lv_disp_flush_ready(display);
 }
 
-// Objects
-lv_obj_t *arc;
-
-// Elements for Home Screen
-void make_arc()
-{
-  lv_color_t stored_color = lv_color_make(140, 0, 255);
-
-  // Create the arc
-  arc = lv_arc_create(home_screen);
-  lv_obj_set_size(arc, 200, 200);
-  lv_obj_set_style_arc_width(arc, 20, LV_PART_INDICATOR);
-  lv_obj_set_style_arc_width(arc, 20, LV_PART_MAIN);
-  lv_arc_set_bg_angles(arc, 120, 60);
-  lv_obj_remove_style(arc, NULL, LV_PART_KNOB);
-  lv_obj_set_style_arc_color(arc, lv_color_make(60, 60, 60), LV_PART_MAIN);
-  lv_obj_set_style_arc_color(arc, lv_color_make(60, 60, 60), LV_PART_INDICATOR);
-  lv_arc_set_range(arc, 0, 100);
-  lv_arc_set_value(arc, 100);
-  lv_obj_align(arc, LV_ALIGN_CENTER, 0, 0);
-}
-
 // Make Home Screen
 void make_home_screen()
 {
   home_screen = lv_obj_create(NULL);
   lv_obj_set_style_bg_color(home_screen, black, LV_PART_MAIN);
   lv_obj_set_style_bg_opa(home_screen, LV_OPA_COVER, LV_PART_MAIN);
-
-  //make_arc();
 }
 
 void setup()
@@ -218,13 +174,13 @@ void loop()
 {
   try
   {
+    //TODO: refactor this to use a global variable and an external function call
     static uint32_t lastTick = millis();
     uint32_t current = millis();
     lv_tick_inc(current - lastTick);
     lastTick = current;
     lv_timer_handler();
 
-    checkScreenDimming();
     delay(5);
   }
   catch (const std::exception &e)
