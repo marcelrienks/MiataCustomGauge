@@ -2,6 +2,7 @@
 
 #include "main.h"
 
+//TODO: external class
 class LGFX : public lgfx::LGFX_Device
 {
   lgfx::Panel_GC9A01 _panel_instance;
@@ -73,12 +74,12 @@ public:
 LGFX device;
 Preferences preferences;
 
-//TODO: pull this out into a static class
-// Constants
+// TODO: pull this out into a static class
+//  Constants
 lv_color_t black = lv_color_make(0, 0, 0);
 
-//TODO: convert this to a class object, with lv_obj_t and custom screen functions below
-// Screens
+// TODO: convert this to a class object, with lv_obj_t and custom screen functions below
+//  Screens
 lv_obj_t *screen;
 
 // Components
@@ -87,9 +88,9 @@ Meter *meter;
 const unsigned int lvBufferSize = SCREEN_WIDTH * 10;
 uint8_t lvBuffer[2][lvBufferSize];
 
-void set_needle_line_value(void * obj, int32_t v)
+void set_needle_line_value(void *obj, int32_t v)
 {
-    meter->set_needle_line_value(obj, v);
+  meter->set_needle_line_value(obj, v);
 }
 
 void screenBrightness(uint8_t value)
@@ -113,30 +114,20 @@ void my_disp_flush(lv_display_t *display, const lv_area_t *area, unsigned char *
   lv_disp_flush_ready(display);
 }
 
-// Make Home Screen
-void make_home_screen()
-{
-  screen = lv_obj_create(NULL);
-  lv_obj_set_style_bg_color(screen, black, LV_PART_MAIN);
-  lv_obj_set_style_bg_opa(screen, LV_OPA_COVER, LV_PART_MAIN);
-}
-
 void setup()
 {
   try
   {
     Serial.begin(115200);
 
-    int rt = preferences.getInt("rotate", 0);
-
-    // initialise screen
+    // Initialise screen
     device.init();
     device.initDMA();
     device.startWrite();
     device.fillScreen(TFT_BLACK);
-    device.setRotation(rt);
+    device.setRotation(preferences.getInt("rotate", 0));
 
-    lv_init(); // initialise LVGL
+    lv_init();
 
     // setup screen
     static auto *lvDisplay = lv_display_create(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -146,9 +137,11 @@ void setup()
 
     screenBrightness(SCREEN_DEFAULT_BRIGHTNESS);
 
-    make_home_screen();
-    
-    //init Meter
+    screen = lv_obj_create(NULL);
+    lv_obj_set_style_bg_color(screen, black, LV_PART_MAIN);
+    lv_obj_set_style_bg_opa(screen, LV_OPA_COVER, LV_PART_MAIN);
+
+    // init Meter
     meter = new Meter(screen);
     meter->register_animation_cb(set_needle_line_value);
     meter->build();
@@ -168,7 +161,7 @@ void loop()
 {
   try
   {
-    //TODO: refactor this to use a global variable and an external function call
+    // TODO: refactor this to use a global variable and an external function call
     static uint32_t lastTick = millis();
     uint32_t current = millis();
     lv_tick_inc(current - lastTick);
