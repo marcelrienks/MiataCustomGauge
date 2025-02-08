@@ -43,7 +43,7 @@ public:
     lv_obj_t *screen;
 
     static void display_flush_wrapper(lv_display_t *display, const lv_area_t *area, unsigned char *data);
-    void display_flush(lv_display_t *display, const lv_area_t *area, unsigned char *data);
+    void display_flush_callback(lv_display_t *display, const lv_area_t *area, unsigned char *data);
 
     void prepare();
     void load();

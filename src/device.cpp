@@ -68,27 +68,6 @@ Device::Device(void)
     setPanel(&_panel_instance);
 }
 
-/// @brief static Display Flush Wrapper function
-void Device::display_flush_wrapper(lv_display_t *display, const lv_area_t *area, unsigned char *data)
-{
-    if (g_device_instance != nullptr)
-        g_device_instance->display_flush(display, area, data);
-}
-
-/// @brief Display Flush Callback function
-void Device::display_flush(lv_display_t *display, const lv_area_t *area, unsigned char *data)
-{
-    uint32_t w = lv_area_get_width(area);
-    uint32_t h = lv_area_get_height(area);
-    lv_draw_sw_rgb565_swap(data, w * h);
-
-    if (g_device_instance->getStartCount() == 0)
-        g_device_instance->endWrite();
-
-    g_device_instance->pushImageDMA(area->x1, area->y1, area->x2 - area->x1 + 1, area->y2 - area->y1 + 1, (uint16_t *)data);
-    lv_disp_flush_ready(display);
-}
-
 /// @brief Initialises the device and setting various screen properties
 void Device::prepare()
 {
@@ -117,6 +96,27 @@ void Device::prepare()
 void Device::load()
 {
     lv_scr_load(screen);
+}
+
+/// @brief static Display Flush Wrapper function
+void Device::display_flush_wrapper(lv_display_t *display, const lv_area_t *area, unsigned char *data)
+{
+    if (g_device_instance != nullptr)
+        g_device_instance->display_flush_callback(display, area, data);
+}
+
+/// @brief Display Flush Callback function
+void Device::display_flush_callback(lv_display_t *display, const lv_area_t *area, unsigned char *data)
+{
+    uint32_t w = lv_area_get_width(area);
+    uint32_t h = lv_area_get_height(area);
+    lv_draw_sw_rgb565_swap(data, w * h);
+
+    if (g_device_instance->getStartCount() == 0)
+        g_device_instance->endWrite();
+
+    g_device_instance->pushImageDMA(area->x1, area->y1, area->x2 - area->x1 + 1, area->y2 - area->y1 + 1, (uint16_t *)data);
+    lv_disp_flush_ready(display);
 }
 
 Device::~Device()
