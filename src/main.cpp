@@ -6,11 +6,11 @@ Device device;
 Preferences preferences;
 
 // Components
-Meter *meter;
+Demo *demo;
 
 void set_needle_line_value(void *obj, int32_t v)
 {
-  meter->set_needle_line_value(obj, v);
+  demo->set_needle_line_value(obj, v);
 }
 
 void setup()
@@ -21,10 +21,10 @@ void setup()
 
     device.Init();
 
-    // init Meter
-    meter = new Meter(device.screen);
-    meter->register_animation_cb(set_needle_line_value);
-    meter->build();
+    // init Demo
+    demo = new Demo(device.screen);
+    demo->register_animation_cb(set_needle_line_value);
+    demo->build();
 
     device.Load();
 
@@ -42,7 +42,6 @@ void loop()
   try
   {
     Ticker::HandleTimers();
-
     delay(5);
   }
   catch (const std::exception &e)

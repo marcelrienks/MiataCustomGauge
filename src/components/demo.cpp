@@ -1,17 +1,17 @@
-#include "components/meter.h"
+#include "components/demo.h"
 
 //TODO: extend the component event model
-Meter::Meter(lv_obj_t *screen) 
+Demo::Demo(lv_obj_t *screen) 
 {
   this->display = screen;
 }
 
-void Meter::register_animation_cb(lv_anim_exec_xcb_t cb)
+void Demo::register_animation_cb(lv_anim_exec_xcb_t cb)
 {
   this->animation_cb = cb;
 }
 
-void Meter::build(void) 
+void Demo::build(void) 
 {
   // /*Create an Arc*/
   // static lv_style_t style;
@@ -125,7 +125,7 @@ void Meter::build(void)
 
 }
 
-void Meter::set_needle_line_value(void * obj, int32_t v)
+void Demo::set_needle_line_value(void * obj, int32_t v)
 {
     lv_scale_set_line_needle_value((lv_obj_t *)obj, this->needle_line, 60, v);
 }
