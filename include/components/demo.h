@@ -15,8 +15,8 @@ public:
   Demo(lv_obj_t *screen);
   ~Demo();
 
-  static void animation_callback_wrapper(void *obj, int32_t v);
-  void animation_callback(void *obj, int32_t v);
+  static void animation_callback_wrapper(void *scale, int32_t needle_value);
+  void animation_callback(void *scale, int32_t needle_value);
 };
 
 extern Demo *g_demo_instance;

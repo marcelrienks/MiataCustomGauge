@@ -16,7 +16,6 @@ void setup()
 
     _device.prepare();
 
-    // create Demo
     _demo = new Demo(_device.screen);
 
     _device.load();

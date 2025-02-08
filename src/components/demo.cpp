@@ -3,27 +3,12 @@
 Demo *g_demo_instance = nullptr;
 
 // TODO: extend the component event model
+
+/// @brief Demo constructor, generates a scale with a needle line
 Demo::Demo(lv_obj_t *screen)
 {
   g_demo_instance = this;
   this->_screen = screen;
-
-  // /*Create an Arc*/
-  // static lv_style_t style;
-  // lv_style_init(&style);
-
-  // lv_style_set_arc_color(&style, lv_palette_main(LV_PALETTE_RED));
-  // lv_style_set_arc_width(&style, 4);
-
-  // lv_obj_t * arc = lv_arc_create(this->display);
-  // lv_obj_add_style(arc, &style, 0);
-
-  // lv_obj_set_size(arc, 150, 150);
-  // lv_arc_set_rotation(arc, 135);
-  // lv_arc_set_bg_angles(arc, 0, 270);
-  // lv_arc_set_value(arc, 50);
-  // lv_obj_center(arc);
-  //  lv_obj_add_event_cb(arc, value_changed_event_cb, LV_EVENT_VALUE_CHANGED, NULL);
 
   // /*Manually update the label for the first time*/
   // lv_obj_send_event(arc, LV_EVENT_VALUE_CHANGED, NULL);
@@ -117,15 +102,21 @@ Demo::Demo(lv_obj_t *screen)
   lv_anim_start(&anim_scale_line);
 }
 
-void Demo::animation_callback_wrapper(void *obj, int32_t v)
+/// @brief Animation callback wrapper function
+/// @param obj 
+/// @param v 
+void Demo::animation_callback_wrapper(void *scale, int32_t needle_value)
 {
   if (g_demo_instance != nullptr)
-    g_demo_instance->animation_callback(obj, v);
+    g_demo_instance->animation_callback(scale, needle_value);
 }
 
-void Demo::animation_callback(void *scale, int32_t value)
+/// @brief Animation callback function
+/// @param scale 
+/// @param value 
+void Demo::animation_callback(void *scale, int32_t needle_value)
 {
-  lv_scale_set_line_needle_value((lv_obj_t *)scale, g_demo_instance->_needle_line, 60, value);
+  lv_scale_set_line_needle_value((lv_obj_t *)scale, g_demo_instance->_needle_line, 60, needle_value);
 }
 
 Demo::~Demo()
@@ -133,12 +124,3 @@ Demo::~Demo()
   if (g_demo_instance == this)
     g_demo_instance = nullptr;
 }
-
-// static void value_changed_event_cb(lv_event_t * e)
-// {
-//     lv_obj_t * arc = lv_event_get_target_obj(e);
-//     lv_obj_t * label = (lv_obj_t *)lv_event_get_user_data(e);
-//     lv_label_set_text_fmt(label, "%" LV_PRId32 "%%", lv_arc_get_value(arc));
-//     /*Rotate the label to the current position of the arc*/
-//     lv_arc_rotate_obj_to_angle(arc, label, 25);
-// }
