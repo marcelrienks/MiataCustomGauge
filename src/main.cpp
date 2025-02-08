@@ -2,7 +2,7 @@
 
 #include "main.h"
 
-//TODO: external class
+// TODO: external class
 class LGFX : public lgfx::LGFX_Device
 {
   lgfx::Panel_GC9A01 _panel_instance;
@@ -47,10 +47,13 @@ public:
       cfg.dummy_read_pixel = 8;
       cfg.dummy_read_bits = 1;
       cfg.readable = false;
-      cfg.invert = true;
       cfg.rgb_order = SCREEN_RGB_ORDER;
       cfg.dlen_16bit = false;
       cfg.bus_shared = false;
+
+#ifdef RELEASE
+      cfg.invert = true;
+#endif
 
       _panel_instance.config(cfg);
     }
