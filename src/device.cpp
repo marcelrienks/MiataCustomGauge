@@ -1,10 +1,11 @@
 #include <device.h>
 
-Device *g_instance = nullptr;
+Device *g_device_instance = nullptr;
 
+/// @brief Device constructor, initialises the device and sets the bus, panel and light configurations
 Device::Device(void)
 {
-    g_instance = this;
+    g_device_instance = this;
 
     {
         auto cfg = _bus_instance.config();
@@ -67,25 +68,28 @@ Device::Device(void)
     setPanel(&_panel_instance);
 }
 
+/// @brief static Display Flush Wrapper function
 void Device::DisplayFlushWrapper(lv_display_t *display, const lv_area_t *area, unsigned char *data)
 {
-    if (g_instance != nullptr)
-        g_instance->DisplayFlush(display, area, data);
+    if (g_device_instance != nullptr)
+        g_device_instance->DisplayFlush(display, area, data);
 }
 
+/// @brief Display Flush Callback function
 void Device::DisplayFlush(lv_display_t *display, const lv_area_t *area, unsigned char *data)
 {
     uint32_t w = lv_area_get_width(area);
     uint32_t h = lv_area_get_height(area);
     lv_draw_sw_rgb565_swap(data, w * h);
 
-    if (g_instance->getStartCount() == 0)
-    g_instance->endWrite();
+    if (g_device_instance->getStartCount() == 0)
+        g_device_instance->endWrite();
 
-    g_instance->pushImageDMA(area->x1, area->y1, area->x2 - area->x1 + 1, area->y2 - area->y1 + 1, (uint16_t *)data);
+    g_device_instance->pushImageDMA(area->x1, area->y1, area->x2 - area->x1 + 1, area->y2 - area->y1 + 1, (uint16_t *)data);
     lv_disp_flush_ready(display);
 }
 
+/// @brief Initialises the device and setting various screen properties
 void Device::Init()
 {
     // Initialise screen
@@ -109,6 +113,7 @@ void Device::Init()
     lv_obj_set_style_bg_opa(screen, LV_OPA_COVER, LV_PART_MAIN);
 }
 
+/// @brief Displays the screen
 void Device::Load()
 {
     lv_scr_load(screen);
@@ -116,6 +121,6 @@ void Device::Load()
 
 Device::~Device()
 {
-    if (g_instance == this)
-        g_instance = nullptr;
+    if (g_device_instance == this)
+        g_device_instance = nullptr;
 }

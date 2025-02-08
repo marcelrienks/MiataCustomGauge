@@ -8,11 +8,6 @@ Preferences preferences;
 // Components
 Demo *demo;
 
-void set_needle_line_value(void *obj, int32_t v)
-{
-  demo->set_needle_line_value(obj, v);
-}
-
 void setup()
 {
   try
@@ -21,10 +16,8 @@ void setup()
 
     device.Init();
 
-    // init Demo
+    // create Demo
     demo = new Demo(device.screen);
-    demo->register_animation_cb(set_needle_line_value);
-    demo->build();
 
     device.Load();
 

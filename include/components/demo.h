@@ -9,14 +9,15 @@ class Demo
 {
 public:
   Demo(lv_obj_t *screen);
-  void register_animation_cb(lv_anim_exec_xcb_t cb);
-  void build(void);
-  void set_needle_line_value(void *obj, int32_t v);
+  static void AnimationCallbackWrapper(lv_anim_exec_xcb_t cb);
+  void AnimationCallback(void *obj, int32_t v);
 
 private:
-  lv_obj_t *display;
+  lv_obj_t *screen;
   lv_obj_t *needle_line;
   lv_anim_exec_xcb_t animation_cb;
 };
+
+extern Demo *g_demo_instance;
 
 #endif // DEMO_H

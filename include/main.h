@@ -9,7 +9,7 @@
 #include <string.h>
 #include <Preferences.h>
 #include "components/demo.h"
-#include <device.h>
+#include "device.h"
 #include "ticker.h"
 
 #endif

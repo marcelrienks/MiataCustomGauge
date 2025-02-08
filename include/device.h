@@ -49,6 +49,6 @@ public:
     void Load();
 };
 
-extern Device *g_instance;
+extern Device *g_device_instance;
 
 #endif // DEVICE_H
