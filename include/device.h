@@ -28,16 +28,14 @@
 
 class Device : public lgfx::LGFX_Device
 {
-    // COPILOT suggestion
-    // public:
-    //   Device(void) : lgfx::LGFX_Device() {
-    //     init();
-    //   }
-    //   void init(void) {
-    //     lgfx::LGFX_Device::begin();
-    //     lgfx::LGFX_Device::setRotation(1);
-    //     lgfx::LGFX_Device::setBrightness(SCREEN_DEFAULT_BRIGHTNESS);
-    //   }
+private:
+    lgfx::Panel_GC9A01 _panel_instance;
+    lgfx::Light_PWM _light_instance;
+    lgfx::Bus_SPI _bus_instance;
+
+public:
+    Device();
+    ~Device();
 };
 
 #endif // DEVICE_H
