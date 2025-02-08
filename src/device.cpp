@@ -63,6 +63,16 @@ Device::Device(void)
     setPanel(&_panel_instance);
 }
 
+void Device::Init()
+{
+    // Initialise screen
+    init();
+    initDMA();
+    startWrite();
+    fillScreen(TFT_BLACK);
+    setRotation(0);
+}
+
 Device::~Device()
 {
     // TODO: anything that was instantiated here using 'new' must be deleted

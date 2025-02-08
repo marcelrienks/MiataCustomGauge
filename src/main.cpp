@@ -51,12 +51,7 @@ void setup()
   {
     Serial.begin(115200);
 
-    // Initialise screen
-    device.init();
-    device.initDMA();
-    device.startWrite();
-    device.fillScreen(TFT_BLACK);
-    device.setRotation(preferences.getInt("rotate", 0));
+    device.Init();
 
     lv_init();
 

@@ -36,6 +36,8 @@ private:
 public:
     Device();
     ~Device();
+
+    void Init();
 };
 
 #endif // DEVICE_H
