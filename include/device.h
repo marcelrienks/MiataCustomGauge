@@ -33,8 +33,8 @@ private:
     lgfx::Light_PWM _light_instance;
     lgfx::Bus_SPI _bus_instance;
 
-    const static unsigned int lvBufferSize = SCREEN_WIDTH * 10;
-    uint8_t lvBuffer[2][lvBufferSize];
+    const static unsigned int _lv_buffer_size = SCREEN_WIDTH * 10;
+    uint8_t lv_buffer[2][_lv_buffer_size];
 
 public:
     Device();
@@ -42,11 +42,11 @@ public:
 
     lv_obj_t *screen;
 
-    static void DisplayFlushWrapper(lv_display_t *display, const lv_area_t *area, unsigned char *data);
-    void DisplayFlush(lv_display_t *display, const lv_area_t *area, unsigned char *data);
+    static void display_flush_wrapper(lv_display_t *display, const lv_area_t *area, unsigned char *data);
+    void display_flush(lv_display_t *display, const lv_area_t *area, unsigned char *data);
 
-    void Init();
-    void Load();
+    void prepare();
+    void load();
 };
 
 extern Device *g_device_instance;

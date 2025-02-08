@@ -2,11 +2,11 @@
 
 #include "main.h"
 
-Device device;
-Preferences preferences;
+Device _device;
+Preferences _preferences;
 
 // Components
-Demo *demo;
+Demo *_demo;
 
 void setup()
 {
@@ -14,12 +14,12 @@ void setup()
   {
     Serial.begin(115200);
 
-    device.Init();
+    _device.prepare();
 
     // create Demo
-    demo = new Demo(device.screen);
+    _demo = new Demo(_device.screen);
 
-    device.Load();
+    _device.load();
 
     Serial.print("Setup finished");
   }
@@ -34,7 +34,7 @@ void loop()
 {
   try
   {
-    Ticker::HandleTimers();
+    Ticker::handle_timers();
     delay(5);
   }
   catch (const std::exception &e)

@@ -9,13 +9,13 @@ class Demo
 {
 public:
   Demo(lv_obj_t *screen);
-  static void AnimationCallbackWrapper(lv_anim_exec_xcb_t cb);
-  void AnimationCallback(void *obj, int32_t v);
+  static void animation_callback_wrapper(lv_anim_exec_xcb_t cb);
+  void animation_callback(void *obj, int32_t v);
 
 private:
-  lv_obj_t *screen;
-  lv_obj_t *needle_line;
-  lv_anim_exec_xcb_t animation_cb;
+  lv_obj_t *_screen;
+  lv_obj_t *_needle_line;
+  lv_anim_exec_xcb_t _animation_callback;
 };
 
 extern Demo *g_demo_instance;

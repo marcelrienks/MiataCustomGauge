@@ -69,14 +69,14 @@ Device::Device(void)
 }
 
 /// @brief static Display Flush Wrapper function
-void Device::DisplayFlushWrapper(lv_display_t *display, const lv_area_t *area, unsigned char *data)
+void Device::display_flush_wrapper(lv_display_t *display, const lv_area_t *area, unsigned char *data)
 {
     if (g_device_instance != nullptr)
-        g_device_instance->DisplayFlush(display, area, data);
+        g_device_instance->display_flush(display, area, data);
 }
 
 /// @brief Display Flush Callback function
-void Device::DisplayFlush(lv_display_t *display, const lv_area_t *area, unsigned char *data)
+void Device::display_flush(lv_display_t *display, const lv_area_t *area, unsigned char *data)
 {
     uint32_t w = lv_area_get_width(area);
     uint32_t h = lv_area_get_height(area);
@@ -90,7 +90,7 @@ void Device::DisplayFlush(lv_display_t *display, const lv_area_t *area, unsigned
 }
 
 /// @brief Initialises the device and setting various screen properties
-void Device::Init()
+void Device::prepare()
 {
     // Initialise screen
     init();
@@ -105,8 +105,8 @@ void Device::Init()
     // setup screen
     static auto *lvDisplay = lv_display_create(SCREEN_WIDTH, SCREEN_HEIGHT);
     lv_display_set_color_format(lvDisplay, LV_COLOR_FORMAT_RGB565);
-    lv_display_set_flush_cb(lvDisplay, Device::DisplayFlushWrapper);
-    lv_display_set_buffers(lvDisplay, lvBuffer[0], lvBuffer[1], lvBufferSize, LV_DISPLAY_RENDER_MODE_PARTIAL);
+    lv_display_set_flush_cb(lvDisplay, Device::display_flush_wrapper);
+    lv_display_set_buffers(lvDisplay, lv_buffer[0], lv_buffer[1], _lv_buffer_size, LV_DISPLAY_RENDER_MODE_PARTIAL);
 
     screen = lv_obj_create(NULL);
     lv_obj_set_style_bg_color(screen, lv_color_black(), LV_PART_MAIN);
@@ -114,7 +114,7 @@ void Device::Init()
 }
 
 /// @brief Displays the screen
-void Device::Load()
+void Device::load()
 {
     lv_scr_load(screen);
 }

@@ -6,7 +6,7 @@ Demo *g_demo_instance = nullptr;
 Demo::Demo(lv_obj_t *screen) 
 {
   g_demo_instance = this;
-  this->screen = screen;
+  this->_screen = screen;
 
     // /*Create an Arc*/
   // static lv_style_t style;
@@ -27,7 +27,7 @@ Demo::Demo(lv_obj_t *screen)
 
   // /*Manually update the label for the first time*/
   // lv_obj_send_event(arc, LV_EVENT_VALUE_CHANGED, NULL);
-  lv_obj_t * scale = lv_scale_create(this->screen);
+  lv_obj_t * scale = lv_scale_create(this->_screen);
   lv_obj_set_size(scale, 150, 150);
   lv_scale_set_label_show(scale, true);
   lv_scale_set_mode(scale, LV_SCALE_MODE_ROUND_OUTER);
@@ -100,17 +100,17 @@ Demo::Demo(lv_obj_t *screen)
   lv_scale_section_set_style(section, LV_PART_ITEMS, &section_minor_tick_style);
   lv_scale_section_set_style(section, LV_PART_MAIN, &section_main_line_style);
 
-  this->needle_line = lv_line_create(scale);
-  lv_obj_set_style_line_color(this->needle_line, lv_palette_lighten(LV_PALETTE_INDIGO, 3), 0);
-  lv_obj_set_style_line_width(this->needle_line, 6, LV_PART_MAIN);
-  lv_obj_set_style_line_rounded(this->needle_line, true, LV_PART_MAIN);
-  lv_scale_set_line_needle_value(scale, this->needle_line, 60, 0);
+  this->_needle_line = lv_line_create(scale);
+  lv_obj_set_style_line_color(this->_needle_line, lv_palette_lighten(LV_PALETTE_INDIGO, 3), 0);
+  lv_obj_set_style_line_width(this->_needle_line, 6, LV_PART_MAIN);
+  lv_obj_set_style_line_rounded(this->_needle_line, true, LV_PART_MAIN);
+  lv_scale_set_line_needle_value(scale, this->_needle_line, 60, 0);
 
   lv_anim_t anim_scale_line;
   lv_anim_init(&anim_scale_line);
   lv_anim_set_var(&anim_scale_line, scale);
-  if (this->animation_cb) {
-    lv_anim_set_exec_cb(&anim_scale_line, this->animation_cb);
+  if (this->_animation_callback) {
+    lv_anim_set_exec_cb(&anim_scale_line, this->_animation_callback);
   }
   lv_anim_set_duration(&anim_scale_line, 1000);
   lv_anim_set_repeat_count(&anim_scale_line, LV_ANIM_REPEAT_INFINITE);
@@ -119,14 +119,14 @@ Demo::Demo(lv_obj_t *screen)
   lv_anim_start(&anim_scale_line);
 }
 
-void Demo::AnimationCallbackWrapper(lv_anim_exec_xcb_t cb)
+void Demo::animation_callback_wrapper(lv_anim_exec_xcb_t animation_callback)
 {
-  g_demo_instance->animation_cb = cb;
+  g_demo_instance->_animation_callback = animation_callback;
 }
 
-void Demo::AnimationCallback(void * obj, int32_t v)
+void Demo::animation_callback(void * scale, int32_t value)
 {
-    lv_scale_set_line_needle_value((lv_obj_t *)obj, g_demo_instance->needle_line, 60, v);
+    lv_scale_set_line_needle_value((lv_obj_t *)scale, g_demo_instance->_needle_line, 60, value);
 }
 
 // static void value_changed_event_cb(lv_event_t * e)
