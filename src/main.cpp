@@ -5,10 +5,6 @@
 Device device;
 Preferences preferences;
 
-// TODO: pull this out into a static class
-//  Constants
-lv_color_t black = lv_color_make(0, 0, 0);
-
 // TODO: convert this to a class object, with lv_obj_t and custom screen functions below
 //  Screens
 lv_obj_t *screen;
@@ -21,11 +17,6 @@ void set_needle_line_value(void *obj, int32_t v)
   meter->set_needle_line_value(obj, v);
 }
 
-void screenBrightness(uint8_t value)
-{
-  device.setBrightness(value);
-}
-
 void setup()
 {
   try
@@ -34,10 +25,8 @@ void setup()
 
     device.Init();
 
-    screenBrightness(SCREEN_DEFAULT_BRIGHTNESS);
-
     screen = lv_obj_create(NULL);
-    lv_obj_set_style_bg_color(screen, black, LV_PART_MAIN);
+    lv_obj_set_style_bg_color(screen, lv_color_black(), LV_PART_MAIN);
     lv_obj_set_style_bg_opa(screen, LV_OPA_COVER, LV_PART_MAIN);
 
     // init Meter

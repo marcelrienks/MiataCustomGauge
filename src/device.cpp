@@ -94,6 +94,7 @@ void Device::Init()
     startWrite();
     fillScreen(TFT_BLACK);
     setRotation(0);
+    setBrightness(SCREEN_DEFAULT_BRIGHTNESS);
 
     lv_init();
 
