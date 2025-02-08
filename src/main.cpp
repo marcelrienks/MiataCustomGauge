@@ -20,14 +20,13 @@ void setup()
     Serial.begin(115200);
 
     device.Init();
-
     
     // init Meter
     meter = new Meter(device.screen);
     meter->register_animation_cb(set_needle_line_value);
     meter->build();
 
-    lv_scr_load(device.screen);
+    device.Load();
 
     Serial.print("Setup finished");
   }

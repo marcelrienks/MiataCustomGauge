@@ -46,6 +46,7 @@ public:
     void DisplayFlush(lv_display_t *display, const lv_area_t *area, unsigned char *data);
 
     void Init();
+    void Load();
 };
 
 extern Device *g_instance;

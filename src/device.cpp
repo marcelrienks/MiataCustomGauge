@@ -107,7 +107,11 @@ void Device::Init()
     screen = lv_obj_create(NULL);
     lv_obj_set_style_bg_color(screen, lv_color_black(), LV_PART_MAIN);
     lv_obj_set_style_bg_opa(screen, LV_OPA_COVER, LV_PART_MAIN);
+}
 
+void Device::Load()
+{
+    lv_scr_load(screen);
 }
 
 Device::~Device()
