@@ -8,7 +8,7 @@
 #include <lvgl.h>
 #include <string.h>
 #include <Preferences.h>
-#include "meter.h"
+#include "components/meter.h"
 
 // Screen
 #define SCREEN_WIDTH 240

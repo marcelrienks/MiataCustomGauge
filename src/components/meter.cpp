@@ -1,4 +1,4 @@
-#include "meter.h"
+#include "components/meter.h"
 
 //TODO: extend the component event model
 Meter::Meter(lv_obj_t *screen) 
