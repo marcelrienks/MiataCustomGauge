@@ -33,6 +33,9 @@ private:
     lgfx::Light_PWM _light_instance;
     lgfx::Bus_SPI _bus_instance;
 
+    const static unsigned int lvBufferSize = SCREEN_WIDTH * 10;
+    uint8_t lvBuffer[2][lvBufferSize];
+
 public:
     Device();
     ~Device();
@@ -42,5 +45,7 @@ public:
 
     void Init();
 };
+
+extern Device *g_instance;
 
 #endif // DEVICE_H

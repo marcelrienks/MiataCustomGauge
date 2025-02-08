@@ -1,8 +1,5 @@
 #include <device.h>
 
-const unsigned int lvBufferSize = SCREEN_WIDTH * 10;
-uint8_t lvBuffer[2][lvBufferSize];
-
 Device *g_instance = nullptr;
 
 Device::Device(void)
