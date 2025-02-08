@@ -20,7 +20,7 @@ void setup()
     Serial.begin(115200);
 
     device.Init();
-    
+
     // init Meter
     meter = new Meter(device.screen);
     meter->register_animation_cb(set_needle_line_value);
@@ -41,12 +41,7 @@ void loop()
 {
   try
   {
-    // TODO: refactor this to use a global variable and an external function call
-    static uint32_t lastTick = millis();
-    uint32_t current = millis();
-    lv_tick_inc(current - lastTick);
-    lastTick = current;
-    lv_timer_handler();
+    Ticker::HandleTimers();
 
     delay(5);
   }

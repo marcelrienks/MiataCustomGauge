@@ -10,5 +10,6 @@
 #include <Preferences.h>
 #include "components/meter.h"
 #include <device.h>
+#include "ticker.h"
 
 #endif
