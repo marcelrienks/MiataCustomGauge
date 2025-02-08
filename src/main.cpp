@@ -5,10 +5,6 @@
 Device device;
 Preferences preferences;
 
-// TODO: convert this to a class object, with lv_obj_t and custom screen functions below
-//  Screens
-lv_obj_t *screen;
-
 // Components
 Meter *meter;
 
@@ -25,16 +21,13 @@ void setup()
 
     device.Init();
 
-    screen = lv_obj_create(NULL);
-    lv_obj_set_style_bg_color(screen, lv_color_black(), LV_PART_MAIN);
-    lv_obj_set_style_bg_opa(screen, LV_OPA_COVER, LV_PART_MAIN);
-
+    
     // init Meter
-    meter = new Meter(screen);
+    meter = new Meter(device.screen);
     meter->register_animation_cb(set_needle_line_value);
     meter->build();
 
-    lv_scr_load(screen);
+    lv_scr_load(device.screen);
 
     Serial.print("Setup finished");
   }

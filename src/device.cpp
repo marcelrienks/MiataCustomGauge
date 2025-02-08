@@ -103,6 +103,11 @@ void Device::Init()
     lv_display_set_color_format(lvDisplay, LV_COLOR_FORMAT_RGB565);
     lv_display_set_flush_cb(lvDisplay, Device::DisplayFlushWrapper);
     lv_display_set_buffers(lvDisplay, lvBuffer[0], lvBuffer[1], lvBufferSize, LV_DISPLAY_RENDER_MODE_PARTIAL);
+
+    screen = lv_obj_create(NULL);
+    lv_obj_set_style_bg_color(screen, lv_color_black(), LV_PART_MAIN);
+    lv_obj_set_style_bg_opa(screen, LV_OPA_COVER, LV_PART_MAIN);
+
 }
 
 Device::~Device()

@@ -40,6 +40,8 @@ public:
     Device();
     ~Device();
 
+    lv_obj_t *screen;
+
     static void DisplayFlushWrapper(lv_display_t *display, const lv_area_t *area, unsigned char *data);
     void DisplayFlush(lv_display_t *display, const lv_area_t *area, unsigned char *data);
 
