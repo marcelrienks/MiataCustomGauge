@@ -1,7 +1,14 @@
 #include <device.h>
 
+const unsigned int lvBufferSize = SCREEN_WIDTH * 10;
+uint8_t lvBuffer[2][lvBufferSize];
+
+Device *g_instance = nullptr;
+
 Device::Device(void)
 {
+    g_instance = this;
+
     {
         auto cfg = _bus_instance.config();
         cfg.spi_host = SPI;
@@ -63,6 +70,25 @@ Device::Device(void)
     setPanel(&_panel_instance);
 }
 
+void Device::DisplayFlushWrapper(lv_display_t *display, const lv_area_t *area, unsigned char *data)
+{
+    if (g_instance != nullptr)
+        g_instance->DisplayFlush(display, area, data);
+}
+
+void Device::DisplayFlush(lv_display_t *display, const lv_area_t *area, unsigned char *data)
+{
+    uint32_t w = lv_area_get_width(area);
+    uint32_t h = lv_area_get_height(area);
+    lv_draw_sw_rgb565_swap(data, w * h);
+
+    if (g_instance->getStartCount() == 0)
+    g_instance->endWrite();
+
+    g_instance->pushImageDMA(area->x1, area->y1, area->x2 - area->x1 + 1, area->y2 - area->y1 + 1, (uint16_t *)data);
+    lv_disp_flush_ready(display);
+}
+
 void Device::Init()
 {
     // Initialise screen
@@ -71,9 +97,18 @@ void Device::Init()
     startWrite();
     fillScreen(TFT_BLACK);
     setRotation(0);
+
+    lv_init();
+
+    // setup screen
+    static auto *lvDisplay = lv_display_create(SCREEN_WIDTH, SCREEN_HEIGHT);
+    lv_display_set_color_format(lvDisplay, LV_COLOR_FORMAT_RGB565);
+    lv_display_set_flush_cb(lvDisplay, Device::DisplayFlushWrapper);
+    lv_display_set_buffers(lvDisplay, lvBuffer[0], lvBuffer[1], lvBufferSize, LV_DISPLAY_RENDER_MODE_PARTIAL);
 }
 
 Device::~Device()
 {
-    // TODO: anything that was instantiated here using 'new' must be deleted
+    if (g_instance == this)
+        g_instance = nullptr;
 }

@@ -16,9 +16,6 @@ lv_obj_t *screen;
 // Components
 Meter *meter;
 
-const unsigned int lvBufferSize = SCREEN_WIDTH * 10;
-uint8_t lvBuffer[2][lvBufferSize];
-
 void set_needle_line_value(void *obj, int32_t v)
 {
   meter->set_needle_line_value(obj, v);
@@ -29,22 +26,6 @@ void screenBrightness(uint8_t value)
   device.setBrightness(value);
 }
 
-// TODO: Can this be put in an external class?
-void my_disp_flush(lv_display_t *display, const lv_area_t *area, unsigned char *data)
-{
-  uint32_t w = lv_area_get_width(area);
-  uint32_t h = lv_area_get_height(area);
-  lv_draw_sw_rgb565_swap(data, w * h);
-
-  if (device.getStartCount() == 0)
-  {
-    device.endWrite();
-  }
-
-  device.pushImageDMA(area->x1, area->y1, area->x2 - area->x1 + 1, area->y2 - area->y1 + 1, (uint16_t *)data);
-  lv_disp_flush_ready(display);
-}
-
 void setup()
 {
   try
@@ -52,14 +33,6 @@ void setup()
     Serial.begin(115200);
 
     device.Init();
-
-    lv_init();
-
-    // setup screen
-    static auto *lvDisplay = lv_display_create(SCREEN_WIDTH, SCREEN_HEIGHT);
-    lv_display_set_color_format(lvDisplay, LV_COLOR_FORMAT_RGB565);
-    lv_display_set_flush_cb(lvDisplay, my_disp_flush);
-    lv_display_set_buffers(lvDisplay, lvBuffer[0], lvBuffer[1], lvBufferSize, LV_DISPLAY_RENDER_MODE_PARTIAL);
 
     screenBrightness(SCREEN_DEFAULT_BRIGHTNESS);
 

@@ -37,6 +37,9 @@ public:
     Device();
     ~Device();
 
+    static void DisplayFlushWrapper(lv_display_t *display, const lv_area_t *area, unsigned char *data);
+    void DisplayFlush(lv_display_t *display, const lv_area_t *area, unsigned char *data);
+
     void Init();
 };
 
