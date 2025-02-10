@@ -1,10 +1,5 @@
-# Name,Type,SubType,Offset,Size,Flags
-
-# non volatile storage for key value pairs = 32 768 bytes
-nvs,data,nvs,0x9000,0x7000,
-
-# application memory = 3 207 168 bytes
-factory,app,factory,0x10000,0x311000,
-
-# file system memory = 30 277 636 bytes
-spiffs,data,spiffs,0x321000,0x1cdf000,
+# Name,     Type, SubType,  Offset,   Size, Flags
+nvs,        data, nvs,      0x9000,   0x6000,
+factory,    app,  factory,  0x10000,  3M,
+coredump,   data, coredump, 0x310000, 64K,
+storage,    data, spiffs,   0x320000, 27900K,
