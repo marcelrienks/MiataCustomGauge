@@ -6,5 +6,5 @@ void Ticker::handle_timers() {
     uint32_t current = millis();
     lv_tick_inc(current - lastTick);
     lastTick = current;
-    lv_timer_handler();
+    lv_task_handler();
 }
