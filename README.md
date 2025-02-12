@@ -1,5 +1,7 @@
+[![Build ESP32 Project with PlatformIO](https://github.com/marcelrienks/Clarity/actions/workflows/c-cpp.yml/badge.svg?branch=main)](https://github.com/marcelrienks/Clarity/actions/workflows/c-cpp.yml)
+
 # Clarity
-Custom digital gauge for monitoring and displaying your engines key parameters, on various screen configurations and combinations of components and sensors.
+An ESP32 project, using platformio, which builds a custom digital gauge for monitoring and displaying your engines key parameters, on various screen configurations and combinations of components and sensors.
 
 ## Main Libraries:
 * Arduino
