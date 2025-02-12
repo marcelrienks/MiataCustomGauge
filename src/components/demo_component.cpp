@@ -1,11 +1,11 @@
-#include "components/views/demo_view.h"
+#include "components/demo_component.h"
 
-DemoView *g_demo_view_instance = nullptr;
+DemoComponent *g_demo_component_instance = nullptr;
 
 /// @brief DemoScreen constructor, generates a scale with a needle line
-DemoView::DemoView(lv_obj_t *base_screen, DemoModel *demo_model)
+DemoComponent::DemoComponent(lv_obj_t *base_screen, DemoSensor *demo_sensor)
 {
-    g_demo_view_instance = this;
+    g_demo_component_instance = this;
     _base_screen = base_screen;
 
     // /*Manually update the label for the first time*/
