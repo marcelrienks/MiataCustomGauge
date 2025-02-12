@@ -1,4 +1,4 @@
-#include "components/demo.h"
+#include "demo.h"
 
 Demo *g_demo_instance = nullptr;
 

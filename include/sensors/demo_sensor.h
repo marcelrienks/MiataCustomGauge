@@ -10,7 +10,7 @@ class DemoSensor
 public:
     lv_obj_t *_needle_line;
 
-    DemoSensor();
+    DemoSensor(lv_obj_t *scale);
     ~DemoSensor();
 };
 
