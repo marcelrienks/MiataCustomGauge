@@ -19,8 +19,6 @@ void setup()
 
     // Handle all tasks, to allow screen to render
     Ticker::tick();
-
-    Serial.println("Setup finished");
   }
   catch (const std::exception &e)
   {
@@ -39,7 +37,8 @@ void loop()
     // Handle all tasks, to allow screen to render
     Ticker::tick();
 
-    delay(100);
+    // Delay to control the refresh rate (e.g., 30 FPS)
+    delay(33); // 33 milliseconds delay for approximately 30 FPS
   }
   catch (const std::exception &e)
   {
