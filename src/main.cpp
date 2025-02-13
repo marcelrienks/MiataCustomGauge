@@ -20,6 +20,8 @@ void setup()
 
     _device.load();
 
+    Ticker::handle_timers();
+
     Serial.print("Setup finished");
   }
   catch (const std::exception &e)
