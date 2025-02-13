@@ -17,8 +17,11 @@ void setup()
     _device.prepare();
 
     _demo_screen = new DemoScreen(_device.screen);
+    _demo_screen->init();
 
     _device.load();
+
+    Ticker::handle_timers();
 
     Serial.println("Setup finished");
   }
@@ -33,14 +36,10 @@ void loop()
 {
   try
   {
-    // Ticker::handle_timers();
+    _demo_screen->update_reading();
+    Ticker::handle_timers();
 
-    // _demo_screen->update_reading();
-    // lv_task_handler();
-
-    delay(1000);
-
-    Serial.println("loop finished");
+    delay(5);
   }
   catch (const std::exception &e)
   {

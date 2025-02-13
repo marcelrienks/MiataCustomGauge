@@ -6,7 +6,7 @@ DemoComponent *g_demo_component_instance = nullptr;
 DemoComponent::DemoComponent(lv_obj_t *base_screen)
 {
     g_demo_component_instance = this;
-    _base_screen = base_screen;
+    this->_base_screen = base_screen;
 }
 
 /// @brief Initialize the component
