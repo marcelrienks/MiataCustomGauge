@@ -1,5 +1,6 @@
 #include <device.h>
 
+/// @brief Global instance of the Device instantiated in the constructor used for static callback
 Device *g_device_instance = nullptr;
 
 /// @brief Device constructor, initialises the device and sets the bus, panel and light configurations
@@ -119,6 +120,7 @@ void Device::display_flush_callback(lv_display_t *display, const lv_area_t *area
     lv_disp_flush_ready(display);
 }
 
+/// @brief Device destructor to clean up global instance
 Device::~Device()
 {
     if (g_device_instance == this)

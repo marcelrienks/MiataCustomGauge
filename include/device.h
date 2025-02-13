@@ -49,6 +49,7 @@ public:
     void load();
 };
 
+// Global instance of the Device instantiated in the constructor (externally)
 extern Device *g_device_instance;
 
 #endif // DEVICE_H

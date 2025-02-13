@@ -12,7 +12,9 @@ An ESP32 project, using platformio, which builds a custom digital gauge for moni
 Conceptually there is one `device`, with one `display` (this is based on lvgl structure), this can have many `screen` configurations, each of which having many `components` together comprising a screen. _Note: components can be part of many screen configurations (many to many relationship)_
 > Device > Display > Screens > Components
 
-This is designed around an MVP pattern.
+This is designed around an MVP pattern.  
+A sensor will represent the model, and be responsible for handling data reading. A component will represent the view, and be responsible for building the view for the sensor data. And the screen will represent the presenter, and will be responsible for building and displaying one or more components per screen.
+> Sensor(model) <> Component(view) <> Screen(presenter)  
 
 Based on an input (either from sensor signal or from a button press) the device/display will load different screens. For example an emergency screen can be shown when a sensor signal moves beyond a threshold, replacing the screen that was configured to display using a button input which normally cycles through multiple screen configurations.
 
