@@ -5,5 +5,5 @@ class Ticker
 {
 private:
 public:
-    static void handle_timers();
+    static void tick();
 };

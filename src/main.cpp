@@ -2,12 +2,6 @@
 
 #include "main.h"
 
-Device _device;
-Preferences _preferences;
-
-// Components
-DemoScreen *_demo_screen;
-
 void setup()
 {
   try
@@ -24,7 +18,7 @@ void setup()
     _device.load();
 
     // Handle all tasks, to allow screen to render
-    Ticker::handle_timers();
+    Ticker::tick();
 
     Serial.println("Setup finished");
   }
@@ -43,7 +37,7 @@ void loop()
     _demo_screen->update_reading();
 
     // Handle all tasks, to allow screen to render
-    Ticker::handle_timers();
+    Ticker::tick();
 
     delay(100);
   }
