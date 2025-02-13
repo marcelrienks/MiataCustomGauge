@@ -18,9 +18,6 @@ void DemoScreen::init()
 void DemoScreen::update_reading()
 {
     int reading = _demo_sensor->get_reading();
-    Serial.print("reading = ");
-    Serial.print(reading);
-    Serial.println();
     _demo_component->update_needle(reading);
 }
 
