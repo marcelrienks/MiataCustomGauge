@@ -1,11 +1,22 @@
 #include <sensors/demo_sensor.h>
+#include <random>
 
-lv_obj_t *_needle_line = nullptr;
+DemoSensor::DemoSensor() {
+    
+}
 
-DemoSensor::DemoSensor(lv_obj_t *scale) {
-    _needle_line = lv_line_create(scale);
-    lv_obj_set_style_line_color(_needle_line, lv_palette_lighten(LV_PALETTE_INDIGO, 3), 0);
-    lv_obj_set_style_line_width(_needle_line, 6, LV_PART_MAIN);
-    lv_obj_set_style_line_rounded(_needle_line, true, LV_PART_MAIN);
-    lv_scale_set_line_needle_value(scale, _needle_line, 60, 0);
+int DemoSensor::get_reading() {
+    //This is where the sensor would be read, and potentially the data interpreted to some degree
+
+    // Create a random number generator
+    std::random_device rd;  // Seed generator
+    std::mt19937 gen(rd()); // Mersenne Twister engine
+    std::uniform_int_distribution<> dis(25, 75); // Define the range
+
+    // Generate a random number in the range [0, 100]
+    return dis(gen);
+}
+
+DemoSensor::~DemoSensor() {
+    
 }

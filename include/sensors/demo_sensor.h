@@ -8,10 +8,10 @@
 class DemoSensor
 {
 public:
-    lv_obj_t *_needle_line;
-
-    DemoSensor(lv_obj_t *scale);
+    DemoSensor();
     ~DemoSensor();
+
+    int get_reading();
 };
 
 #endif // DEMO_SENSOR_H

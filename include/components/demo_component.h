@@ -10,15 +10,14 @@ class DemoComponent
 {
 private:
     lv_obj_t *_base_screen;
+    lv_obj_t *_needle_line;
 
 public:
     DemoComponent(lv_obj_t *base_screen);
     ~DemoComponent();
 
-    void Init();
-
-    static void animation_callback_wrapper(void *scale, int32_t needle_value);
-    void animation_callback(void *scale, int32_t needle_value);
+    void init();
+    void update_needle(int32_t value);
 
     lv_obj_t *_scale;
 };

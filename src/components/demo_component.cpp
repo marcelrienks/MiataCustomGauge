@@ -1,7 +1,6 @@
 #include "components/demo_component.h"
 
 DemoComponent *g_demo_component_instance = nullptr;
-lv_obj_t *_scale = nullptr;
 
 /// @brief DemoScreen constructor, generates a _scale with a needle line
 DemoComponent::DemoComponent(lv_obj_t *base_screen)
@@ -10,7 +9,8 @@ DemoComponent::DemoComponent(lv_obj_t *base_screen)
     _base_screen = base_screen;
 }
 
-void DemoComponent::Init()
+/// @brief Initialize the component
+void DemoComponent::init()
 {
     // /*Manually update the label for the first time*/
     // lv_obj_send_event(arc, LV_EVENT_VALUE_CHANGED, NULL);
@@ -87,32 +87,19 @@ void DemoComponent::Init()
     lv_scale_section_set_style(section, LV_PART_ITEMS, &section_minor_tick_style);
     lv_scale_section_set_style(section, LV_PART_MAIN, &section_main_line_style);
 
-    lv_anim_t anim_scale_line;
-    lv_anim_init(&anim_scale_line);
-    lv_anim_set_var(&anim_scale_line, _scale);
-    lv_anim_set_exec_cb(&anim_scale_line, DemoComponent::animation_callback_wrapper);
-    lv_anim_set_duration(&anim_scale_line, 1000);
-    lv_anim_set_repeat_count(&anim_scale_line, LV_ANIM_REPEAT_INFINITE);
-    lv_anim_set_playback_duration(&anim_scale_line, 1000);
-    lv_anim_set_values(&anim_scale_line, 25, 75);
-    lv_anim_start(&anim_scale_line);
+    this->_needle_line = lv_line_create(_scale);
+    lv_obj_set_style_line_color(_needle_line, lv_palette_lighten(LV_PALETTE_INDIGO, 3), 0);
+    lv_obj_set_style_line_width(_needle_line, 6, LV_PART_MAIN);
+    lv_obj_set_style_line_rounded(_needle_line, true, LV_PART_MAIN);
+    lv_scale_set_line_needle_value(_scale, _needle_line, 60, 0);
 }
 
-/// @brief Animation callback wrapper function
-/// @param obj
-/// @param v
-void DemoComponent::animation_callback_wrapper(void *scale, int32_t needle_value)
+/// @brief Change the value of the needle line
+/// @param value the value to set the needle line to
+void DemoComponent::update_needle(int32_t value)
 {
-    if (g_demo_component_instance != nullptr)
-        g_demo_component_instance->animation_callback(scale, needle_value);
-}
-
-/// @brief Animation callback function
-/// @param scale
-/// @param value
-void DemoComponent::animation_callback(void *scale, int32_t needle_value)
-{
-    lv_scale_set_line_needle_value((lv_obj_t *)scale, g_demo_component_instance->_needle_line, 60, needle_value);
+    lv_scale_set_line_needle_value(_scale, this->_needle_line, 60, value);
+    lv_obj_invalidate(_scale);
 }
 
 DemoComponent::~DemoComponent()

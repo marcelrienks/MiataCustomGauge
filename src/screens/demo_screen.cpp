@@ -1,12 +1,26 @@
 #include "screens/demo_screen.h"
 #include "components/demo_component.h"
-#include <sensors/demo_sensor.h>
+#include "sensors/demo_sensor.h"
 
-/// @brief DemoScreen constructor, generates a scale with a needle line
+/// @brief DemoScreen constructor, generates a component and sensor
 DemoScreen::DemoScreen(lv_obj_t *base_screen)
 {
-    DemoComponent *demo_component = new DemoComponent(base_screen);
-    DemoSensor *demo_sensor = new DemoSensor(demo_component->_scale);
+    _demo_component = new DemoComponent(base_screen);
+    _demo_sensor = new DemoSensor();
+}
 
-    demo_component->Init();
+/// @brief Initialize the screen with component and sensor 
+void DemoScreen::init()
+{
+    _demo_component->init();
+}
+
+void DemoScreen::update_reading()
+{
+    int reading = _demo_sensor->get_reading();
+    _demo_component->update_needle(reading);
+}
+
+DemoScreen::~DemoScreen()
+{
 }

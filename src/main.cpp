@@ -6,7 +6,7 @@ Device _device;
 Preferences _preferences;
 
 // Components
-Demo *_demo;
+DemoScreen *_demo_screen;
 
 void setup()
 {
@@ -16,7 +16,7 @@ void setup()
 
     _device.prepare();
 
-    _demo = new Demo(_device.screen);
+    _demo_screen = new DemoScreen(_device.screen);
 
     _device.load();
 
@@ -34,7 +34,10 @@ void loop()
   try
   {
     Ticker::handle_timers();
-    delay(5);
+    _demo_screen->update_reading();
+    delay(1000);
+
+    Serial.print("loop finished");
   }
   catch (const std::exception &e)
   {

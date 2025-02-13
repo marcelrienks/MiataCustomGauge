@@ -8,7 +8,7 @@
 #include <lvgl.h>
 #include <string.h>
 #include <Preferences.h>
-#include "components/demo.h"
+#include "screens/demo_screen.h"
 #include "device.h"
 #include "ticker.h"
 
