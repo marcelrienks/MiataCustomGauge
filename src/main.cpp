@@ -36,10 +36,12 @@ void loop()
 {
   try
   {
+    Serial.println("loop...");
+
     _demo_screen->update_reading();
     Ticker::handle_timers();
 
-    delay(5);
+    delay(100);
   }
   catch (const std::exception &e)
   {
