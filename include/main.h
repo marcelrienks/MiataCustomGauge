@@ -12,4 +12,10 @@
 #include "device.h"
 #include "ticker.h"
 
+Device _device;
+Preferences _preferences;
+
+// Components
+DemoScreen *_demo_screen;
+
 #endif

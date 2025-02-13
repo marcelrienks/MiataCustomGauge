@@ -2,12 +2,6 @@
 
 #include "main.h"
 
-Device _device;
-Preferences _preferences;
-
-// Components
-DemoScreen *_demo_screen;
-
 void setup()
 {
   try
@@ -24,9 +18,7 @@ void setup()
     _device.load();
 
     // Handle all tasks, to allow screen to render
-    Ticker::handle_timers();
-
-    Serial.println("Setup finished");
+    Ticker::tick();
   }
   catch (const std::exception &e)
   {
@@ -43,9 +35,10 @@ void loop()
     _demo_screen->update_reading();
 
     // Handle all tasks, to allow screen to render
-    Ticker::handle_timers();
+    Ticker::tick();
 
-    delay(100);
+    // Delay to control the refresh rate (e.g., 30 FPS)
+    delay(33); // 33 milliseconds delay for approximately 30 FPS
   }
   catch (const std::exception &e)
   {

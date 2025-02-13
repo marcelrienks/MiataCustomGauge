@@ -9,8 +9,6 @@ DemoComponent::DemoComponent(lv_obj_t *base_screen)
 /// @brief Initialize the component
 void DemoComponent::init()
 {
-    // /*Manually update the label for the first time*/
-    // lv_obj_send_event(arc, LV_EVENT_VALUE_CHANGED, NULL);
     _scale = lv_scale_create(this->_base_screen);
     lv_obj_set_size(_scale, 150, 150);
     lv_scale_set_label_show(_scale, true);
