@@ -20,7 +20,7 @@ void setup()
 
     _device.load();
 
-    Serial.print("Setup finished");
+    Serial.println("Setup finished");
   }
   catch (const std::exception &e)
   {
@@ -33,11 +33,14 @@ void loop()
 {
   try
   {
-    Ticker::handle_timers();
-    _demo_screen->update_reading();
+    // Ticker::handle_timers();
+
+    // _demo_screen->update_reading();
+    // lv_task_handler();
+
     delay(1000);
 
-    Serial.print("loop finished");
+    Serial.println("loop finished");
   }
   catch (const std::exception &e)
   {
