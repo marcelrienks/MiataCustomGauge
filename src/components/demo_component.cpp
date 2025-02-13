@@ -1,12 +1,9 @@
 #include "components/demo_component.h"
 
-DemoComponent *g_demo_component_instance = nullptr;
-
 /// @brief DemoScreen constructor, generates a _scale with a needle line
 DemoComponent::DemoComponent(lv_obj_t *base_screen)
 {
-    g_demo_component_instance = this;
-    this->_base_screen = base_screen;
+    _base_screen = base_screen;
 }
 
 /// @brief Initialize the component
@@ -102,8 +99,13 @@ void DemoComponent::update_needle(int32_t value)
     lv_obj_invalidate(_scale);
 }
 
+/// @brief DemoComponent destructor to clean up dynamically allocated objects
 DemoComponent::~DemoComponent()
 {
-    if (g_demo_component_instance == this)
-        g_demo_component_instance = nullptr;
+    if (_needle_line) {
+        lv_obj_del(_needle_line);
+    }
+    if (_scale) {
+        lv_obj_del(_scale);
+    }
 }

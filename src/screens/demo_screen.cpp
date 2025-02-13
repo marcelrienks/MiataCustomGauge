@@ -15,12 +15,16 @@ void DemoScreen::init()
     _demo_component->init();
 }
 
+/// @brief Update the reading on the screen
 void DemoScreen::update_reading()
 {
     int reading = _demo_sensor->get_reading();
     _demo_component->update_needle(reading);
 }
 
+/// @brief DemoScreen destructor to clean up dynamically allocated objects
 DemoScreen::~DemoScreen()
 {
+    delete _demo_component;
+    delete _demo_sensor;
 }

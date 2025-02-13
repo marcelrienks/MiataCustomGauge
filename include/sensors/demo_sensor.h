@@ -9,12 +9,11 @@
 class DemoSensor
 {
 private:
-    std::mt19937 _engine;                         // Mersenne Twister engine
+    std::mt19937 _engine;                          // Mersenne Twister engine
     std::uniform_int_distribution<> _distribution; // Uniform distribution
 
 public:
     DemoSensor();
-    ~DemoSensor();
 
     int get_reading();
 };

@@ -16,11 +16,14 @@ void setup()
 
     _device.prepare();
 
+    // Create and initialise the demo screen by passing device as a dependency
     _demo_screen = new DemoScreen(_device.screen);
     _demo_screen->init();
 
+    // Load all screens associated with device
     _device.load();
 
+    // Handle all tasks, to allow screen to render
     Ticker::handle_timers();
 
     Serial.println("Setup finished");
@@ -36,9 +39,10 @@ void loop()
 {
   try
   {
-    Serial.println("loop...");
-
+    // Update the reading on the screen
     _demo_screen->update_reading();
+
+    // Handle all tasks, to allow screen to render
     Ticker::handle_timers();
 
     delay(100);

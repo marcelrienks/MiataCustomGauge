@@ -22,6 +22,4 @@ public:
     lv_obj_t *_scale;
 };
 
-extern DemoComponent *g_demo_component_instance;
-
 #endif // DEMO_COMPONENT_H
