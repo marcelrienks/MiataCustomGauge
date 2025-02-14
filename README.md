@@ -23,7 +23,7 @@ _This would also allow for future extension with more screen configurations and 
 ## Screens list:
 ### Current:
 * _WIP_
-### Future (TODO):
+### TODO:
 * **Oil pressure gauge**  
 Displaying an analogue oil pressure gauge, key check symbol, and immobiliser symbol. Fully replacing the stock gauge design of the car (specific to Mazda mx5 NC)
 * **Oil pressure warning**
@@ -31,7 +31,7 @@ Displaying an analogue oil pressure gauge, key check symbol, and immobiliser sym
 ## Components list:
 ### Current:
 * _WIP_
-### Future (TODO):
+### TODO:
 * **Oil pressure gauge**
 * **Oil pressure warning**
 * **Key check**
