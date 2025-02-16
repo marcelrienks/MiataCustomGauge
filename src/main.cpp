@@ -37,8 +37,8 @@ void loop()
     // Handle all tasks, to allow screen to render
     Ticker::tick();
 
-    // Delay to control the refresh rate (e.g., 30 FPS)
-    delay(33); // 33 milliseconds delay for approximately 30 FPS
+//    // Delay to control the refresh rate (e.g., 30 FPS)
+//    delay(33); // 33 milliseconds delay for approximately 30 FPS
   }
   catch (const std::exception &e)
   {
