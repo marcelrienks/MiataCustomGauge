@@ -132,6 +132,14 @@ void DemoComponent::update_needle(int32_t value)
     {
         return;
     }
+    if (value >= 75) 
+    {
+        lv_obj_set_style_line_color(_needle_line, lv_palette_darken(LV_PALETTE_RED, 3), 0);
+    }
+    else
+    {
+        lv_obj_set_style_line_color(_needle_line, lv_palette_lighten(LV_PALETTE_INDIGO, 3), 0);
+    }
     lv_anim_init(&anim_scale_line);
     lv_anim_set_var(&anim_scale_line, this->_needle_line);
     lv_anim_set_exec_cb(&anim_scale_line, set_needle_line_value);
