@@ -3,7 +3,6 @@
 
 class Ticker
 {
-private:
 public:
     static void tick();
 };
