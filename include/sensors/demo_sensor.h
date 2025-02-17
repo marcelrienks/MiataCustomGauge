@@ -1,12 +1,13 @@
 #ifndef DEMO_SENSOR_H
 #define DEMO_SENSOR_H
 
+#include "interfaces/sensor_interface.h"
 #include <LovyanGFX.hpp>
 #include <lvgl.h>
 #include <misc/lv_event.h>
 #include <random>
 
-class DemoSensor
+class DemoSensor : ISensor
 {
 private:
     std::mt19937 _engine;                          // Mersenne Twister engine

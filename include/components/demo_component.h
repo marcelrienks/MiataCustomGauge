@@ -1,12 +1,13 @@
 #ifndef DEMO_COMPONENT_H
 #define DEMO_COMPONENT_H
 
+#include "interfaces/component_interface.h"
 #include <LovyanGFX.hpp>
 #include <lvgl.h>
 #include <misc/lv_types.h>
 #include <sensors/demo_sensor.h>
 
-class DemoComponent
+class DemoComponent : IComponent
 {
 private:
     lv_obj_t *_base_screen;
