@@ -10,22 +10,22 @@ class DemoComponent
 {
 private:
     lv_obj_t *_base_screen;
+    lv_obj_t *_scale;
     lv_obj_t *_needle_line;
     lv_anim_t *_anim_scale_line;
     int _current_value;
     uint32_t _start_time;
 
 public:
-    lv_obj_t *_scale;
-
     DemoComponent(lv_obj_t *base_screen);
     ~DemoComponent();
 
     void init();
     void update_needle(int32_t value);
+    void animate_needle(int16_t animation_duration, int16_t playback_duration, int32_t start, int32_t end);
 
-    static void set_needle_line_value_callback_wrapper(void *obj, int32_t value);
-    void set_needle_line_value_callback(void *obj, int32_t value);
+    static void set_needle_line_value_callback_wrapper(void *object, int32_t value);
+    void set_needle_line_value_callback(void *object, int32_t value);
 };
 
 extern DemoComponent *g_demo_component_instance;
