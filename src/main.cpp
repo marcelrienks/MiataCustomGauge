@@ -6,6 +6,10 @@ lv_obj_t *startup_scr;              // Black startup screen
 lv_obj_t *splash_scr;               // Splash screen
 bool startLooping = false;
 
+//TODO: create a global (or screen level) duration variable to control the duration of the animation
+// This duration will also be used to delay sensor reading by the same amount,
+// so that we wait for animation to complete before reading and setting another reading
+
 void fade_in_home(lv_timer_t *timer) {
     // Create and initialise the demo screen by passing device as a dependency
     _demo_screen = new DemoScreen(_device.screen);

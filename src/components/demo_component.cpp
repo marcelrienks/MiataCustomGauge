@@ -1,34 +1,17 @@
 #include "components/demo_component.h"
 
-DemoComponent *_inst;
-
-void set_needle_line_value(void * obj, int32_t v)
-{
-    _inst->set_inst_needle_line_value(obj, v);
-}
+DemoComponent *g_demo_component_instance = nullptr;
 
 /// @brief DemoScreen constructor, generates a _scale with a needle line
 DemoComponent::DemoComponent(lv_obj_t *base_screen)
 {
+    g_demo_component_instance = this;
     _base_screen = base_screen;
-
-}
-
-/// @brief DemoComponent destructor to clean up dynamically allocated objects
-DemoComponent::~DemoComponent()
-{
-    if (_needle_line) {
-        lv_obj_del(_needle_line);
-    }
-    if (_scale) {
-        lv_obj_del(_scale);
-    }
 }
 
 /// @brief Initialize the component
 void DemoComponent::init()
 {
-    _inst = this;
     _scale = lv_scale_create(this->_base_screen);
     lv_obj_set_size(_scale, 150, 150);
     lv_scale_set_label_show(_scale, true);
@@ -108,53 +91,74 @@ void DemoComponent::init()
     lv_obj_set_style_line_rounded(_needle_line, true, LV_PART_MAIN);
     lv_scale_set_line_needle_value(_scale, _needle_line, 60, 0);
 
-    lv_anim_init(&anim_scale_line);
-    lv_anim_set_var(&anim_scale_line, this->_needle_line);
-    lv_anim_set_exec_cb(&anim_scale_line, set_needle_line_value);
-    lv_anim_set_duration(&anim_scale_line, 1000);
-    lv_anim_set_repeat_count(&anim_scale_line, 1);
-    lv_anim_set_playback_duration(&anim_scale_line, 1000);
-    lv_anim_set_values(&anim_scale_line, 0, 100);
-    lv_anim_start(&anim_scale_line);
-    this->startTime = millis();
+    // Clock check animation
+    lv_anim_init(_anim_scale_line);
+    lv_anim_set_var(_anim_scale_line, this->_needle_line);
+    lv_anim_set_exec_cb(_anim_scale_line, DemoComponent::set_needle_line_value_callback_wrapper);
+    lv_anim_set_duration(_anim_scale_line, 1000);
+    lv_anim_set_repeat_count(_anim_scale_line, 0);
+    lv_anim_set_playback_duration(_anim_scale_line, 1000);
+    lv_anim_set_values(_anim_scale_line, 0, 100);
+    lv_anim_start(_anim_scale_line);
+    this->_start_time = millis();
 }
 
 /// @brief Change the value of the needle line
 /// @param value the value to set the needle line to
 void DemoComponent::update_needle(int32_t value)
 {
-    if (millis()-startTime < 3000)
+    if (millis() - _start_time < 3000)
     {
-        this->currentValue = 0;
+        this->_current_value = 0;
         return;
     }
-    if (this->currentValue == value) 
-    {
-        return;
-    }
-    if (value >= 75) 
-    {
-        lv_obj_set_style_line_color(_needle_line, lv_palette_darken(LV_PALETTE_RED, 3), 0);
-    }
-    else
-    {
-        lv_obj_set_style_line_color(_needle_line, lv_palette_lighten(LV_PALETTE_INDIGO, 3), 0);
-    }
-    lv_anim_init(&anim_scale_line);
-    lv_anim_set_var(&anim_scale_line, this->_needle_line);
-    lv_anim_set_exec_cb(&anim_scale_line, set_needle_line_value);
-    lv_anim_set_duration(&anim_scale_line, 1000);
-    lv_anim_set_repeat_count(&anim_scale_line, 1);
-    lv_anim_set_playback_duration(&anim_scale_line, 0);
-    lv_anim_set_values(&anim_scale_line, this->currentValue, value);
-    lv_anim_start(&anim_scale_line);
 
-    this->currentValue = value;
+    if (this->_current_value == value)
+        return;
+
+    if (value >= 75)
+        lv_obj_set_style_line_color(_needle_line, lv_palette_darken(LV_PALETTE_RED, 3), 0);
+    else
+        lv_obj_set_style_line_color(_needle_line, lv_palette_lighten(LV_PALETTE_INDIGO, 3), 0);
+
+    lv_anim_init(_anim_scale_line);
+    lv_anim_set_var(_anim_scale_line, this->_needle_line);
+    lv_anim_set_exec_cb(_anim_scale_line, DemoComponent::set_needle_line_value_callback_wrapper);
+    lv_anim_set_duration(_anim_scale_line, 1000); // TODO: use the global variable mentioned in main
+    lv_anim_set_repeat_count(_anim_scale_line, 0);
+    lv_anim_set_playback_duration(_anim_scale_line, 0);
+    lv_anim_set_values(_anim_scale_line, this->_current_value, value);
+    lv_anim_start(_anim_scale_line);
+
+    this->_current_value = value;
 }
 
-void DemoComponent::set_inst_needle_line_value(void * obj, int32_t v)
+/// @brief Wrapper for the callback function to set the needle line value
+/// @param obj
+/// @param v
+void DemoComponent::set_needle_line_value_callback_wrapper(void *obj, int32_t v)
+{
+    g_demo_component_instance->set_needle_line_value_callback(obj, v);
+}
+
+/// @brief Callback function to set the needle line value
+void DemoComponent::set_needle_line_value_callback(void *obj, int32_t v)
 {
     lv_scale_set_line_needle_value(this->_scale, this->_needle_line, 60, v);
-    // lv_obj_invalidate(_scale);
 }
 
+/// @brief DemoComponent destructor to clean up dynamically allocated objects
+DemoComponent::~DemoComponent()
+{
+    if (g_demo_component_instance)
+        delete g_demo_component_instance;
+
+    if (_needle_line)
+        delete _needle_line;
+
+    if (_anim_scale_line)
+        delete _anim_scale_line;
+
+    if (_scale)
+        delete _scale;
+}

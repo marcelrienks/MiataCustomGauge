@@ -25,6 +25,9 @@ void DemoScreen::update_reading()
 /// @brief DemoScreen destructor to clean up dynamically allocated objects
 DemoScreen::~DemoScreen()
 {
-    delete _demo_component;
-    delete _demo_sensor;
+    if (_demo_component)
+        delete _demo_component;
+
+    if (_demo_sensor)
+        delete _demo_sensor;
 }
