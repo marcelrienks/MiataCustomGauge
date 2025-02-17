@@ -12,6 +12,8 @@ private:
     std::mt19937 _engine;                          // Mersenne Twister engine
     std::uniform_int_distribution<> _distribution; // Uniform distribution
 
+    uint32_t lastReadTime = 0;
+    int currentReading = 0;
 public:
     DemoSensor();
 
