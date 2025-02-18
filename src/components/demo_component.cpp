@@ -91,6 +91,7 @@ void DemoComponent::init()
     lv_obj_set_style_line_rounded(_needle_line, true, LV_PART_MAIN);
     lv_scale_set_line_needle_value(_scale, _needle_line, 60, 0);
 
+    //TODO: should the two lines below form part of the component, rather than the view?
     // Clock check animation
     DemoComponent::animate_needle(1000, 1000, _current_value, 100); // TODO: convert animation duration to a constant
 
