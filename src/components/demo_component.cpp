@@ -3,16 +3,16 @@
 DemoComponent *g_demo_component_instance = nullptr;
 
 /// @brief DemoScreen constructor, generates a _scale with a needle line
-DemoComponent::DemoComponent(lv_obj_t *base_screen)
+DemoComponent::DemoComponent(lv_obj_t *screen)
 {
     g_demo_component_instance = this;
-    _base_screen = base_screen;
+    _screen = screen;
 }
 
 /// @brief Initialize the component
 void DemoComponent::init()
 {
-    _scale = lv_scale_create(this->_base_screen);
+    _scale = lv_scale_create(this->_screen);
     lv_obj_set_size(_scale, 150, 150);
     lv_scale_set_label_show(_scale, true);
     lv_scale_set_mode(_scale, LV_SCALE_MODE_ROUND_OUTER);
@@ -93,7 +93,7 @@ void DemoComponent::init()
 
     //TODO: should the two lines below form part of the component, rather than the view?
     // Clock check animation
-    DemoComponent::animate_needle(1000, 1000, _current_value, 100); // TODO: convert animation duration to a constant
+    DemoComponent::animate_needle(1000, 1000, _current_reading, 100); // TODO: convert animation duration to a constant
 
     this->_start_time = millis();
 }
@@ -104,11 +104,11 @@ void DemoComponent::update_needle(int32_t value)
 {
     if (millis() - _start_time < 3000)
     {
-        this->_current_value = 0;
+        this->_current_reading = 0;
         return;
     }
 
-    if (this->_current_value == value)
+    if (this->_current_reading == value)
         return;
 
     if (value >= 75)
@@ -117,9 +117,9 @@ void DemoComponent::update_needle(int32_t value)
     else
         lv_obj_set_style_line_color(_needle_line, lv_palette_lighten(LV_PALETTE_INDIGO, 3), 0);
 
-    DemoComponent::animate_needle(1000, 0, _current_value, value); // TODO: convert animation duration to a constant
+    DemoComponent::animate_needle(1000, 0, _current_reading, value); // TODO: convert animation duration to a constant
 
-    this->_current_value = value;
+    this->_current_reading = value;
 }
 
 /// @brief Animate the needle line smoothly
@@ -129,14 +129,16 @@ void DemoComponent::update_needle(int32_t value)
 /// @param end the ending value of the needle line
 void DemoComponent::animate_needle(int16_t animation_duration, int16_t playback_duration, int32_t start, int32_t end)
 {
-    lv_anim_init(_anim_scale_line);
-    lv_anim_set_var(_anim_scale_line, this->_needle_line);
-    lv_anim_set_exec_cb(_anim_scale_line, DemoComponent::set_needle_line_value_callback_wrapper);
-    lv_anim_set_duration(_anim_scale_line, animation_duration);
-    lv_anim_set_repeat_count(_anim_scale_line, 0);
-    lv_anim_set_playback_duration(_anim_scale_line, playback_duration);
-    lv_anim_set_values(_anim_scale_line, start, end);
-    lv_anim_start(_anim_scale_line);
+    lv_anim_t animate_scale_line;
+
+    lv_anim_init(&animate_scale_line);
+    lv_anim_set_var(&animate_scale_line, this->_needle_line);
+    lv_anim_set_exec_cb(&animate_scale_line, DemoComponent::set_needle_line_value_callback_wrapper);
+    lv_anim_set_duration(&animate_scale_line, animation_duration);
+    lv_anim_set_repeat_count(&animate_scale_line, 0);
+    lv_anim_set_playback_duration(&animate_scale_line, playback_duration);
+    lv_anim_set_values(&animate_scale_line, start, end);
+    lv_anim_start(&animate_scale_line);
 }
 
 /// @brief Wrapper for the callback function to set the needle line value
@@ -162,8 +164,8 @@ DemoComponent::~DemoComponent()
     if (_needle_line)
         lv_obj_del(_needle_line);
 
-    if (_anim_scale_line)
-        delete _anim_scale_line;
+    if (_animate_scale_line)
+        delete _animate_scale_line;
 
     if (_scale)
         lv_obj_del(_scale);
