@@ -164,9 +164,6 @@ DemoComponent::~DemoComponent()
     if (_needle_line)
         lv_obj_del(_needle_line);
 
-    if (_animate_scale_line)
-        delete _animate_scale_line;
-
     if (_scale)
         lv_obj_del(_scale);
 }

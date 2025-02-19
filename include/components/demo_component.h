@@ -13,7 +13,6 @@ private:
     lv_obj_t *_screen;
     lv_obj_t *_scale;
     lv_obj_t *_needle_line;
-    lv_anim_t *_animate_scale_line;
     uint32_t _start_time;
     int _current_reading;
 
