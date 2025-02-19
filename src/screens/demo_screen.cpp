@@ -19,7 +19,7 @@ void DemoScreen::init()
 void DemoScreen::update_reading()
 {
     int reading = _demo_sensor->get_reading();
-    _demo_component->update_needle(reading);
+    _demo_component->update(reading);
 }
 
 /// @brief DemoScreen destructor to clean up dynamically allocated objects

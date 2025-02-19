@@ -9,6 +9,7 @@ public:
     virtual ~IComponent() = default;
 
     virtual void init() = 0;
+    virtual void update(int32_t value) = 0;
 };
 
 #endif // COMPONENT_INTERFACE_H

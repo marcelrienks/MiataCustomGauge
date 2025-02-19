@@ -26,7 +26,7 @@ public:
     ~DemoComponent();
 
     void init();
-    void update_needle(int32_t value);
+    void update(int32_t value);
 };
 
 extern DemoComponent *g_demo_component_instance;

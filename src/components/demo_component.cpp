@@ -100,7 +100,7 @@ void DemoComponent::init()
 
 /// @brief Change the value of the needle line
 /// @param value the value to set the needle line to
-void DemoComponent::update_needle(int32_t value)
+void DemoComponent::update(int32_t value)
 {
     if (millis() - _start_time < 3000)
     {
@@ -129,7 +129,7 @@ void DemoComponent::update_needle(int32_t value)
 /// @param end the ending value of the needle line
 void DemoComponent::animate_needle(int16_t animation_duration, int16_t playback_duration, int32_t start, int32_t end)
 {
-    lv_anim_t animate_scale_line;
+    static lv_anim_t animate_scale_line;
 
     lv_anim_init(&animate_scale_line);
     lv_anim_set_var(&animate_scale_line, this->_needle_line);
