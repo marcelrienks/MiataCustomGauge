@@ -3,6 +3,7 @@
 
 #include "components/demo_component.h"
 #include "sensors/demo_sensor.h"
+#include "logger/serial_logger.h"
 
 class DemoScreen
 {
