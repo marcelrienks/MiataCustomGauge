@@ -13,6 +13,7 @@ DemoSensor::DemoSensor()
 /// @return temperature reading
 int DemoSensor::get_reading()
 {
+    char logMessage[50];
     uint32_t elapsedTime = millis() - this->lastReadTime;
 
     // This is where the sensor would be read, and potentially the data interpreted to some degree
@@ -22,6 +23,8 @@ int DemoSensor::get_reading()
 
         // Generate a random number in the range [0, 100]
         this->currentReading = _distribution(_engine);
+        sprintf(logMessage, "DemoSensor::get_reading = %d", this->currentReading);
+        log(logMessage);
     }
     
     return this->currentReading;
