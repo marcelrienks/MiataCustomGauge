@@ -3,9 +3,9 @@
 #include "sensors/demo_sensor.h"
 
 /// @brief DemoScreen constructor, generates a component and sensor
-DemoScreen::DemoScreen(lv_obj_t *base_screen)
+DemoScreen::DemoScreen(lv_obj_t *screen)
 {
-    _demo_component = new DemoComponent(base_screen);
+    _demo_component = new DemoComponent(screen);
     _demo_sensor = new DemoSensor();
 }
 

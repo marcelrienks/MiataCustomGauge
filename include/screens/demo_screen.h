@@ -11,7 +11,7 @@ public:
     DemoComponent *_demo_component;
     DemoSensor *_demo_sensor;
 
-    DemoScreen(lv_obj_t *base_screen);
+    DemoScreen(lv_obj_t *screen);
     ~DemoScreen();
 
     void init();

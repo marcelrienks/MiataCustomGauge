@@ -20,9 +20,7 @@ int DemoSensor::get_reading()
         // Generate a random number in the range [0, 100]
         this->currentReading = _distribution(_engine);
 
-        char logMessage[50];
-        snprintf(logMessage, sizeof(logMessage), "DemoSensor::get_reading() = %d", this->currentReading);
-        log(logMessage);
+        log_value("DemoSensor::get_reading()", "currentReading", String(this->currentReading));//TODO: the currentReading value is not being shown in the logs
     }
     
     return this->currentReading;

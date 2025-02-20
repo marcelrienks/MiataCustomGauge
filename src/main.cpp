@@ -72,16 +72,16 @@ void setup()
     // Handle all tasks, to allow screen to render
     Ticker::tick();
 
-    log("Completed setup().");
+    log_point("main::setup()", "completed");
   }
   catch (const std::exception &e)
   {
-    log(e.what());
+    log_message(e.what());
     throw;
   }
   catch (...)
   {
-    log("Unknown exception occurred in setup().");
+    log_point("main::setup()", "Unknown exception occurred");
     throw;
   }
 }
@@ -95,19 +95,19 @@ void loop()
       _demo_screen->update_reading();
 
     else 
-      log("Updating screen not started yet");
+      log_message("Updating screen not started yet");
 
     // Handle all tasks, to allow screen to render
     Ticker::tick();
   }
   catch (const std::exception &e)
   {
-    log(e.what());
+    log_message(e.what());
     throw;
   }
   catch (...)
   {
-    log("Unknown exception occurred in loop().");
+    log_point("main::loop()", "Unknown exception occurred");
     throw;
   }
 }

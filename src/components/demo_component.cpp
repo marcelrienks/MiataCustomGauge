@@ -91,9 +91,8 @@ void DemoComponent::init()
     lv_obj_set_style_line_rounded(_needle_line, true, LV_PART_MAIN);
     lv_scale_set_line_needle_value(_scale, _needle_line, 60, 0);
 
-    //TODO: should the two lines below form part of the component, rather than the view?
     // Clock check animation
-    DemoComponent::animate_needle(1000, 1000, _current_reading, 100); // TODO: convert animation duration to a constant
+    DemoComponent::animate_needle(1000, 1000, _current_reading, 100);
 
     this->_start_time = millis();
 }
@@ -117,7 +116,7 @@ void DemoComponent::update(int32_t value)
     else
         lv_obj_set_style_line_color(_needle_line, lv_palette_lighten(LV_PALETTE_INDIGO, 3), 0);
 
-    DemoComponent::animate_needle(1000, 0, _current_reading, value); // TODO: convert animation duration to a constant
+    DemoComponent::animate_needle(1000, 0, _current_reading, value);
 
     this->_current_reading = value;
 }

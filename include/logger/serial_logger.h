@@ -4,6 +4,9 @@
 #include "Arduino.h"
 
 void init_logger();
-void log(const String &logMessage);
+void log_message(const String &logMessage);
+void log_point(const String &point, const String &message);
+void log_value(const String &point, const String &variable_name, const String &value);
+void log_exception(const String &point, const String &exception);
 
 #endif
