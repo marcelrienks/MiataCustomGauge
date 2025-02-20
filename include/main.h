@@ -6,8 +6,8 @@
 #include "Arduino.h"
 #include <LovyanGFX.hpp>
 #include <lvgl.h>
-#include <string.h>
 #include <Preferences.h>
+#include "logger/serial_logger.h"
 #include "screens/demo_screen.h"
 #include "device.h"
 #include "ticker.h"

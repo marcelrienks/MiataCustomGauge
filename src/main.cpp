@@ -48,7 +48,8 @@ void setup()
 {
   try
   {
-    Serial.begin(115200);
+
+    init_logger();
 
     _device.prepare();
 
@@ -79,6 +80,10 @@ void loop()
     {
       _demo_screen->update_reading();
     }
+    else 
+    {
+      log("updating screen not started yet");
+    }
 
     // Handle all tasks, to allow screen to render
     Ticker::tick();
@@ -88,7 +93,7 @@ void loop()
   }
   catch (const std::exception &e)
   {
-    Serial.println(e.what());
+    log(e.what());
     throw;
   }
 }

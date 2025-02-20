@@ -5,6 +5,7 @@
 #include <lvgl.h>
 #include <misc/lv_event.h>
 #include <random>
+#include "logger/serial_logger.h"
 
 class DemoSensor
 {

@@ -47,7 +47,7 @@ Device::Device(void)
         cfg.dlen_16bit = false;
         cfg.bus_shared = false;
 
-#ifdef RELEASE
+#ifdef INVERT // this is causing colour inversion on builds
         cfg.invert = true;
 #endif
 
