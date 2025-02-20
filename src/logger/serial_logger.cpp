@@ -35,8 +35,8 @@ void log_point(const String &point, const String &message)
 void log_value(const String &point, const String &variable_name, const String &value)
 {
 #ifdef CLARITY_DEBUG
-  char log[50];
-  snprintf(log, sizeof(log), "%s -> %s is = %s", point.c_str(), variable_name.c_str(), value);
+  char log[70];
+  snprintf(log, sizeof(log), "%s -> %s is = %s", point.c_str(), variable_name.c_str(), value.c_str());
   log_message(log);
 #endif
 }
@@ -47,8 +47,8 @@ void log_value(const String &point, const String &variable_name, const String &v
 void log_exception(const String &point, const String &exception)
 {
 #ifdef CLARITY_DEBUG
-  char log[50];
-  snprintf(log, sizeof(log), "%s -> EXCEPTION -  %s", point.c_str(), exception.c_str());
+  char log[80];
+  snprintf(log, sizeof(log), "%s -> EXCEPTION - %s", point.c_str(), exception.c_str());
   log_message(log);
 #endif
 }
