@@ -4,7 +4,7 @@
 Device *g_device_instance = nullptr;
 
 /// @brief Device constructor, initialises the device and sets the bus, panel and light configurations
-Device::Device(void)
+Device::Device()
 {
     g_device_instance = this;
 

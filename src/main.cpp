@@ -71,10 +71,17 @@ void setup()
 
     // Handle all tasks, to allow screen to render
     Ticker::tick();
+
+    log("Completed setup().");
   }
   catch (const std::exception &e)
   {
-    Serial.println(e.what());
+    log(e.what());
+    throw;
+  }
+  catch (...)
+  {
+    log("Unknown exception occurred in setup().");
     throw;
   }
 }
@@ -85,23 +92,22 @@ void loop()
   {
     // Update the reading on the screen
     if (startLooping)
-    {
       _demo_screen->update_reading();
-    }
+
     else 
-    {
-      log("updating screen not started yet");
-    }
+      log("Updating screen not started yet");
 
     // Handle all tasks, to allow screen to render
     Ticker::tick();
-
-    //    // Delay to control the refresh rate (e.g., 30 FPS)
-    //    delay(33); // 33 milliseconds delay for approximately 30 FPS
   }
   catch (const std::exception &e)
   {
     log(e.what());
+    throw;
+  }
+  catch (...)
+  {
+    log("Unknown exception occurred in loop().");
     throw;
   }
 }

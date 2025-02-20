@@ -18,7 +18,6 @@ private:
     int currentReading = 0;
 public:
     DemoSensor();
-
     int get_reading();
 };
 

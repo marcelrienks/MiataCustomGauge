@@ -5,7 +5,6 @@ class ISensor
 {
 public:
     virtual ~ISensor() = default;
-
     virtual int get_reading() = 0;
 };
 
