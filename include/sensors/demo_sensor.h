@@ -1,12 +1,12 @@
 #ifndef DEMO_SENSOR_H
 #define DEMO_SENSOR_H
 
-#include "interfaces/sensor_interface.h"
-#include <LovyanGFX.hpp>
-#include <lvgl.h>
-#include <misc/lv_event.h>
-#include <random>
+#include "interfaces/i_sensor.h"
 #include "logger/serial_logger.h"
+
+#include <lvgl.h>
+#include <LovyanGFX.hpp>
+#include <random>
 
 class DemoSensor : ISensor
 {

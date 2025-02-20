@@ -20,7 +20,7 @@ int DemoSensor::get_reading()
         // Generate a random number in the range [0, 100]
         this->currentReading = _distribution(_engine);
 
-        log_value("DemoSensor::get_reading()", "currentReading", String(this->currentReading));//TODO: the currentReading value is not being shown in the logs
+        SerialLogger().log_value("DemoSensor::get_reading()", "currentReading", String(this->currentReading));//TODO: the currentReading value is not being shown in the logs
     }
     
     return this->currentReading;

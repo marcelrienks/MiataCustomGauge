@@ -3,16 +3,15 @@
 DemoComponent *g_demo_component_instance = nullptr;
 
 /// @brief DemoScreen constructor, generates a _scale with a needle line
-DemoComponent::DemoComponent(lv_obj_t *screen)
+DemoComponent::DemoComponent()
 {
     g_demo_component_instance = this;
-    _screen = screen;
 }
 
 /// @brief Initialize the component
-void DemoComponent::init()
+void DemoComponent::init(lv_obj_t *screen)
 {
-    _scale = lv_scale_create(this->_screen);
+    _scale = lv_scale_create(screen);
     lv_obj_set_size(_scale, 150, 150);
     lv_scale_set_label_show(_scale, true);
     lv_scale_set_mode(_scale, LV_SCALE_MODE_ROUND_OUTER);

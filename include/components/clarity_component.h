@@ -1,18 +1,12 @@
-#ifndef SPLASH_COMPONENT_H
-#define SPLASH_COMPONENT_H
+#ifndef CLARITY_COMPONENT_H
+#define CLARITY_COMPONENT_H
 
-#include "interfaces/component_interface.h"
+#include "interfaces/i_component.h"
 
 class ClarityComponent : IComponent
 {
-private:
-    lv_obj_t *_screen;
-
 public:
-    ClarityComponent(lv_obj_t *screen);
-    ~ClarityComponent();
-
-    void init();
+    void init(lv_obj_t *screen);
 };
 
-#endif // SPLASH_COMPONENT_H
+#endif // CLARITY_COMPONENT_H

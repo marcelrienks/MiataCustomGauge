@@ -2,7 +2,9 @@
 #define DEVICE_H
 
 #define LGFX_USE_V1
-#include "interfaces/device_interface.h"
+
+#include "interfaces/i_device.h"
+
 #include <LovyanGFX.hpp>
 #include <lvgl.h>
 
@@ -27,7 +29,7 @@
 #define BL 3
 #define BUZZER -1
 
-class Device : public IDevice
+class Device : IDevice
 {
 private:
     lgfx::Panel_GC9A01 _panel_instance;

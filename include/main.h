@@ -3,14 +3,15 @@
 
 #define UI_VERSION "4.1.0"
 
-#include "Arduino.h"
-#include <LovyanGFX.hpp>
-#include <lvgl.h>
-#include <Preferences.h>
 #include "logger/serial_logger.h"
 #include "screens/demo_screen.h"
 #include "device.h"
 #include "ticker.h"
+
+#include <Arduino.h>
+#include <lvgl.h>
+#include <LovyanGFX.hpp>
+#include <Preferences.h>
 
 Device _device;
 Preferences _preferences;

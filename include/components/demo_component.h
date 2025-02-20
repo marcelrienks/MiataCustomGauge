@@ -1,16 +1,14 @@
 #ifndef DEMO_COMPONENT_H
 #define DEMO_COMPONENT_H
 
-#include "interfaces/component_interface.h"
-#include <LovyanGFX.hpp>
+#include "interfaces/i_component.h"
+
 #include <lvgl.h>
-#include <misc/lv_types.h>
-#include <sensors/demo_sensor.h>
+#include <LovyanGFX.hpp>
 
 class DemoComponent : IComponent
 {
 private:
-    lv_obj_t *_screen;
     lv_obj_t *_scale;
     lv_obj_t *_needle_line;
     uint32_t _start_time;
@@ -22,10 +20,10 @@ private:
     void set_needle_line_value_callback(void *object, int32_t value);
 
 public:
-    DemoComponent(lv_obj_t *screen);
+    DemoComponent();
     ~DemoComponent();
 
-    void init();
+    void init(lv_obj_t *screen);
     void update(int32_t value);
 };
 

@@ -1,17 +1,11 @@
 #include "logger/serial_logger.h"
 
-void init_logger()
+/// @brief Logs a message that is supplied verbatim
+/// @param message The message to be logged
+void SerialLogger::log_message(const String &message)
 {
 #ifdef CLARITY_DEBUG
   Serial.begin(115200);
-#endif
-}
-
-/// @brief Logs a message that is supplied verbatim
-/// @param message The message to be logged
-void log_message(const String &message)
-{
-#ifdef CLARITY_DEBUG
   Serial.println(message.c_str());
 #endif
 }
@@ -19,12 +13,12 @@ void log_message(const String &message)
 /// @brief Logs a message and prefixes it with the point in code that is supplied. e.g. "DemoSensor::get_reading() -> Busy getting reading"
 /// @param point
 /// @param message
-void log_point(const String &point, const String &message)
+void SerialLogger::log_point(const String &point, const String &message)
 {
 #ifdef CLARITY_DEBUG
   char log[50];
   snprintf(log, sizeof(log), "%s -> %s", point.c_str(), message.c_str());
-  log_message(log);
+  SerialLogger::log_message(log);
 #endif
 }
 
@@ -32,23 +26,23 @@ void log_point(const String &point, const String &message)
 /// @param point
 /// @param variable_name
 /// @param value
-void log_value(const String &point, const String &variable_name, const String &value)
+void SerialLogger::log_value(const String &point, const String &variable_name, const String &value)
 {
 #ifdef CLARITY_DEBUG
   char log[70];
   snprintf(log, sizeof(log), "%s -> %s is = %s", point.c_str(), variable_name.c_str(), value.c_str());
-  log_message(log);
+  SerialLogger::log_message(log);
 #endif
 }
 
 /// @brief Logs an exception and prefixes it with the point in code that is supplied. e.g. "DemoSensor::get_reading() -> EXCEPTION - Busy getting reading"
 /// @param point
 /// @param message
-void log_exception(const String &point, const String &exception)
+void SerialLogger::log_exception(const String &point, const String &exception)
 {
 #ifdef CLARITY_DEBUG
   char log[80];
   snprintf(log, sizeof(log), "%s -> EXCEPTION - %s", point.c_str(), exception.c_str());
-  log_message(log);
+  SerialLogger::log_message(log);
 #endif
 }
