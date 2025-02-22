@@ -1,4 +1,4 @@
-#include "logger/serial_logger.h"
+#include "utilities/serial_logger.h"
 
 /// @brief Logs a message that is supplied verbatim
 /// @param message The message to be logged

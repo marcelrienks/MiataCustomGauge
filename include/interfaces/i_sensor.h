@@ -3,8 +3,8 @@
 
 class ISensor
 {
-public:
-    virtual int get_reading() = 0;
+public:    
+    virtual void init();
 };
 
 #endif // I_SENSOR_H

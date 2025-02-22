@@ -10,3 +10,8 @@ void ClarityComponent::init(lv_obj_t *screen) {
     lv_obj_set_style_img_recolor(icon_three, lv_color_white(), 0);
     lv_obj_set_style_img_recolor_opa(icon_three, LV_OPA_COVER, 0);
 }
+
+void ClarityComponent::update(std::shared_ptr<void> ptr)
+{
+    // Not needed but required to satisfy interface
+}

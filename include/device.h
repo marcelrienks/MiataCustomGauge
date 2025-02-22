@@ -29,7 +29,7 @@
 #define BL 3
 #define BUZZER -1
 
-class Device : IDevice
+class Device : public IDevice
 {
 private:
     lgfx::Panel_GC9A01 _panel_instance;
@@ -40,15 +40,12 @@ private:
     uint8_t _lv_buffer[2][_lv_buffer_size];
 
 public:
-    lv_obj_t *screen;
-
     Device();
     ~Device();
 
     static void display_flush_wrapper(lv_display_t *display, const lv_area_t *area, unsigned char *data);
 
     void prepare();
-    void load();
     void display_flush_callback(lv_display_t *display, const lv_area_t *area, unsigned char *data);
 };
 

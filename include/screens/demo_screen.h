@@ -4,20 +4,24 @@
 #include "interfaces/i_screen.h"
 #include "components/demo_component.h"
 #include "sensors/demo_sensor.h"
-#include "logger/serial_logger.h"
+#include "utilities/serial_logger.h"
 
 #include <lvgl.h>
 
-class DemoScreen : IScreen
+class DemoScreen : public IScreen
 {
-public:
-    DemoComponent *_demo_component;
-    DemoSensor *_demo_sensor;
+private:
+    IDevice *_device;
+    lv_obj_t *_virtual_screen;
+    DemoComponent *_component;
+    DemoSensor *_sensor;
 
+public:
     DemoScreen();
     ~DemoScreen();
 
-    void init(lv_obj_t *screen);
+    void init(IDevice *device);
+    void show();
     void update();
 };
 

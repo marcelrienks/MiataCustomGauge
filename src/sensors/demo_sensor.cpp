@@ -6,22 +6,33 @@ DemoSensor::DemoSensor()
     _distribution = std::uniform_int_distribution<int>(0, 100);
 }
 
+void DemoSensor::init()
+{
+    //TODO: once compiling, confirm that this is needed, due to interface
+    // Not needed but required to satisfy interface
+}
+
 /// @brief Fakes getting a temperature reading from a sensor
 /// @return temperature reading
 int DemoSensor::get_reading()
 {
-    uint32_t elapsedTime = millis() - this->lastReadTime;
+    uint32_t elapsed_time = millis() - this->last_read_time;
 
     // This is where the sensor would be read, and potentially the data interpreted to some degree
-    if (this->lastReadTime == 0 || elapsedTime > 1000) //TODO: convert this into the global variable mentioned on Main
+    if (this->last_read_time == 0 || elapsed_time > 1000) //TODO: convert this into the global variable mentioned on Main
     {
-        this->lastReadTime = millis();
+        this->last_read_time = millis();
 
         // Generate a random number in the range [0, 100]
-        this->currentReading = _distribution(_engine);
+        this->current_reading = _distribution(_engine);
 
-        SerialLogger().log_value("DemoSensor::get_reading()", "currentReading", String(this->currentReading));//TODO: the currentReading value is not being shown in the logs
+        SerialLogger().log_value("DemoSensor::get_reading()", "currentReading", String(this->current_reading));//TODO: the currentReading value is not being shown in the logs
     }
     
-    return this->currentReading;
+    return this->current_reading;
+}
+
+DemoSensor::~DemoSensor() {
+    //TODO: once compiling, confirm that this is needed, due to interface
+    // Not needed but required to satisfy interface
 }

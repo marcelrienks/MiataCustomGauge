@@ -9,9 +9,9 @@ DemoComponent::DemoComponent()
 }
 
 /// @brief Initialize the component
-void DemoComponent::init(lv_obj_t *screen)
+void DemoComponent::init(lv_obj_t *virtual_screen)
 {
-    _scale = lv_scale_create(screen);
+    _scale = lv_scale_create(virtual_screen);
     lv_obj_set_size(_scale, 150, 150);
     lv_scale_set_label_show(_scale, true);
     lv_scale_set_mode(_scale, LV_SCALE_MODE_ROUND_OUTER);
@@ -98,8 +98,10 @@ void DemoComponent::init(lv_obj_t *screen)
 
 /// @brief Change the value of the needle line
 /// @param value the value to set the needle line to
-void DemoComponent::update(int32_t value)
+void DemoComponent::update(std::shared_ptr<void> ptr)
 {
+    int value = *std::static_pointer_cast<int>(ptr);  // Cast to int
+
     if (millis() - _start_time < 3000)
     {
         this->_current_reading = 0;

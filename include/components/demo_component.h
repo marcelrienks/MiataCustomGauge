@@ -6,7 +6,7 @@
 #include <lvgl.h>
 #include <LovyanGFX.hpp>
 
-class DemoComponent : IComponent
+class DemoComponent : public IComponent
 {
 private:
     lv_obj_t *_scale;
@@ -23,8 +23,8 @@ public:
     DemoComponent();
     ~DemoComponent();
 
-    void init(lv_obj_t *screen);
-    void update(int32_t value);
+    void init(lv_obj_t *virtual_screen);
+    void update(std::shared_ptr<void> ptr);
 };
 
 extern DemoComponent *g_demo_component_instance;

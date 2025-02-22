@@ -3,10 +3,11 @@
 
 #define UI_VERSION "4.1.0"
 
-#include "logger/serial_logger.h"
+#include "utilities/serial_logger.h"
+#include "utilities/ticker.h"
 #include "screens/demo_screen.h"
+#include "screens/splash_screen.h"
 #include "device.h"
-#include "ticker.h"
 
 #include <Arduino.h>
 #include <lvgl.h>

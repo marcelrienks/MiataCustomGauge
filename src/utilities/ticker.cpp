@@ -1,4 +1,4 @@
-#include "ticker.h"
+#include "utilities/ticker.h"
 
 /// @brief Handle timers using tickers and calculating the time differences since start up
 void Ticker::tick() {
