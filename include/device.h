@@ -4,6 +4,8 @@
 #define LGFX_USE_V1
 
 #include "interfaces/i_device.h"
+#include "utilities/serial_logger.h"
+#include "utilities/lv_tools.h"
 
 #include <LovyanGFX.hpp>
 #include <lvgl.h>
@@ -42,6 +44,9 @@ private:
 public:
     Device();
     ~Device();
+
+    lv_obj_t *screen;
+    //bool _is_splash_complete = false;
 
     static void display_flush_wrapper(lv_display_t *display, const lv_area_t *area, unsigned char *data);
 

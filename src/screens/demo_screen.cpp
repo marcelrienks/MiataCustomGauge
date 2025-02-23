@@ -17,12 +17,16 @@ void DemoScreen::init(IDevice *device)
 
     this->_virtual_screen = lv_obj_create(NULL);
     _component->init(this->_virtual_screen);
+
+    SerialLogger().log_point("DemoScreen::init()", "Completed");
 }
 
 /// @brief Show the screen
 void DemoScreen::show()
 {
     lv_scr_load(this->_virtual_screen);
+
+    SerialLogger().log_point("DemoScreen::show()", "Completed");
 }
 
 /// @brief Update the reading on the screen
@@ -30,6 +34,8 @@ void DemoScreen::update()
 {
     int reading = _sensor->get_reading();
     _component->update(std::make_shared<int>(reading));
+
+    SerialLogger().log_point("DemoScreen::update()", "Completed");
 }
 
 /// @brief DemoScreen destructor to clean up dynamically allocated objects

@@ -12,6 +12,8 @@ void setup()
 {
   try
   {
+    SerialLogger().log_point("main::setup()", "Entry");
+
     _device.prepare();
 
     auto *splash_screen = new SplashScreen();
@@ -22,10 +24,7 @@ void setup()
     demo_screen->init(&_device);
     demo_screen->show();
 
-    // Handle all tasks, to allow screen to render
-    Ticker::tick();
-
-    SerialLogger().log_point("main::setup()", "completed");
+    SerialLogger().log_point("main::setup()", "Completed");
   }
   catch (const std::exception &e)
   {
@@ -43,10 +42,21 @@ void loop()
 {
   try
   {
-    _demo_screen->update();
+    SerialLogger().log_point("main::loop()", "Entry");
+
+    if (_device._is_splash_complete)
+      _demo_screen->update();
+
+    else
+      SerialLogger().log_point("main::loop()", "splash running...");
 
     // Handle all tasks, to allow screen to render
     Ticker::tick();
+
+    //_demo_screen->update();
+    delay(250);
+
+    SerialLogger().log_point("main::loop()", "Completed");
   }
   catch (const std::exception &e)
   {

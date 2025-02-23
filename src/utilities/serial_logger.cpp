@@ -16,7 +16,7 @@ void SerialLogger::log_message(const String &message)
 void SerialLogger::log_point(const String &point, const String &message)
 {
 #ifdef CLARITY_DEBUG
-  char log[50];
+  char log[80];
   snprintf(log, sizeof(log), "%s -> %s", point.c_str(), message.c_str());
   SerialLogger::log_message(log);
 #endif
@@ -29,7 +29,7 @@ void SerialLogger::log_point(const String &point, const String &message)
 void SerialLogger::log_value(const String &point, const String &variable_name, const String &value)
 {
 #ifdef CLARITY_DEBUG
-  char log[70];
+  char log[80];
   snprintf(log, sizeof(log), "%s -> %s is = %s", point.c_str(), variable_name.c_str(), value.c_str());
   SerialLogger::log_message(log);
 #endif
